@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eduSRC 自动化漏洞扫描 Agent 架构</title>
+<style>
+  :root {
+    --bg: #0b0f19;
+    --surface: #141a26;
+    --surface2: #1a2235;
+    --border: #243044;
+    --text: #c8d6e5;
+    --text2: #8899aa;
+    --accent: #4da6ff;
+    --green: #2ecc71;
+    --orange: #f39c12;
+    --red: #e74c3c;
+    --purple: #9b59b6;
+    --cyan: #1abc9c;
+    --pink: #e84393;
+    --yellow: #f1c40f;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.6;
+  }
+
+  /* ───── Header ───── */
+  .header {
+    background: linear-gradient(135deg, #0d1b2a 0%, #1b2838 50%, #0d1b2a 100%);
+    border-bottom: 2px solid var(--accent);
+    padding: 56px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle at 30% 50%, rgba(77,166,255,0.06) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(155,89,182,0.04) 0%, transparent 50%);
+    animation: headerGlow 8s ease-in-out infinite alternate;
+  }
+  @keyframes headerGlow {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(30px, -15px); }
+  }
+  .header h1 {
+    font-size: 2.4em;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), var(--cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    z-index: 1;
+  }
+  .header .subtitle {
+    color: var(--text2);
+    font-size: 1.1em;
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 2px;
+  }
+
+  /* ───── Container ───── */
+  .container { max-width: 1240px; margin: 0 auto; padding: 36px 24px; }
+
+  /* ───── Section Titles ───── */
+  .section-title {
+    font-size: 1.45em;
+    font-weight: 700;
+    margin: 52px 0 22px;
+    padding-left: 18px;
+    border-left: 4px solid var(--accent);
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  /* ───── Cards ───── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .card:hover {
+    border-color: rgba(77,166,255,0.3);
+    box-shadow: 0 4px 28px rgba(0,0,0,0.35);
+  }
+  .card h3 { font-size: 1.1em; margin-bottom: 12px; color: var(--accent); }
+
+  /* ───── Stats Row ───── */
+  .stats-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 36px; }
+  .stat-box {
+    flex: 1; min-width: 150px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    text-align: center;
+    transition: transform 0.2s;
+  }
+  .stat-box:hover { transform: translateY(-2px); }
+  .stat-box .num { font-size: 2.2em; font-weight: 800; }
+  .stat-box .label { font-size: 0.82em; color: var(--text2); margin-top: 6px; }
+  .stat-box:nth-child(1) .num { color: var(--accent); }
+  .stat-box:nth-child(2) .num { color: var(--green); }
+  .stat-box:nth-child(3) .num { color: var(--orange); }
+  .stat-box:nth-child(4) .num { color: var(--red); }
+
+  /* ───── Architecture Layers ───── */
+  .arch-overview { display: flex; flex-direction: column; gap: 10px; }
+  .arch-layer {
+    display: flex;
+    align-items: stretch;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .arch-layer:hover {
+    transform: translateX(6px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  .arch-layer-label {
+    width: 160px; min-width: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.88em;
+    text-align: center;
+    padding: 14px 10px;
+  }
+  .arch-layer-body {
+    flex: 1;
+    background: var(--surface2);
+    padding: 16px 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+  .arch-module {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.82em;
+    white-space: nowrap;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .arch-module:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); }
+  .arch-module small { display: block; color: #889; margin-top: 2px; font-size: 0.9em; }
+
+  .l0 .arch-layer-label { background: #16213e; color: #e94560; }
+  .l1 .arch-layer-label { background: #0f3d24; color: #2ecc71; }
+  .l2 .arch-layer-label { background: #2d300f; color: #f1c40f; }
+  .l3 .arch-layer-label { background: #0f2840; color: #4da6ff; }
+  .l4 .arch-layer-label { background: #2d0f2d; color: #e84393; }
+  .l5 .arch-layer-label { background: #0f2d2d; color: #1abc9c; }
+
+  /* ───── Compliance Table ───── */
+  .compliance-table { width: 100%; border-collapse: collapse; font-size: 0.88em; }
+  .compliance-table th {
+    background: var(--surface2);
+    color: var(--accent);
+    padding: 13px 16px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid var(--border);
+  }
+  .compliance-table td {
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .compliance-table tr:hover td { background: rgba(255,255,255,0.015); }
+  .badge {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 12px;
+    font-size: 0.78em;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .badge-red    { background: rgba(231,76,60,0.2); color: var(--red); }
+  .badge-orange { background: rgba(243,156,18,0.2); color: var(--orange); }
+  .badge-green  { background: rgba(46,204,113,0.2); color: var(--green); }
+
+  /* ───── Pipeline Flow ───── */
+  .pipeline {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    overflow-x: auto;
+    padding: 20px 0;
+  }
+  .pipeline-step {
+    flex: 1;
+    min-width: 200px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 16px;
+    text-align: center;
+    position: relative;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .pipeline-step:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.2); }
+  .pipeline-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    font-size: 1.6em;
+    color: var(--accent);
+    padding-top: 36px;
+  }
+  .pipeline-step .step-num {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 0.9em;
+    margin: 0 auto 12px;
+  }
+  .pipeline-step .step-title { font-weight: 700; margin-bottom: 8px; font-size: 0.95em; }
+  .pipeline-step .step-detail { font-size: 0.78em; color: var(--text2); line-height: 1.6; }
+  .s1 .step-num { background: rgba(46,204,113,0.2); color: var(--green); }
+  .s2 .step-num { background: rgba(241,196,15,0.2); color: var(--yellow); }
+  .s3 .step-num { background: rgba(77,166,255,0.2); color: var(--accent); }
+  .s4 .step-num { background: rgba(232,67,147,0.2); color: var(--pink); }
+  .s5 .step-num { background: rgba(26,188,156,0.2); color: var(--cyan); }
+
+  /* ───── ROI Grid ───── */
+  .roi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .roi-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+  .roi-card:hover { transform: translateY(-2px); }
+  .roi-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+  }
+  .roi-p0::before { background: linear-gradient(90deg, #e74c3c, #e84393); }
+  .roi-p1::before { background: linear-gradient(90deg, #f39c12, #e74c3c); }
+  .roi-p2::before { background: linear-gradient(90deg, #f1c40f, #f39c12); }
+  .roi-p3::before { background: linear-gradient(90deg, #16a085, #2ecc71); }
+  .roi-card .prio {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 10px;
+    font-size: 0.75em;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .roi-card h4 { font-size: 1.05em; margin: 8px 0; }
+  .roi-card .cost { font-size: 0.8em; color: var(--text2); margin-bottom: 6px; }
+  .roi-card .stars { color: var(--yellow); font-size: 0.82em; margin-bottom: 10px; letter-spacing: 1px; }
+  .roi-card .desc { font-size: 0.82em; color: var(--text2); line-height: 1.6; }
+  .prio-red    { background: rgba(231,76,60,0.2); color: var(--red); }
+  .prio-orange { background: rgba(243,156,18,0.2); color: var(--orange); }
+  .prio-yellow { background: rgba(241,196,15,0.2); color: var(--yellow); }
+  .prio-green  { background: rgba(46,204,113,0.2); color: var(--green); }
+
+  /* ───── Grids ───── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 800px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  /* ───── Data Flow ───── */
+  .dataflow {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-family: "SF Mono", "Fira Code", "Cascadia Code", "Menlo", monospace;
+    font-size: 0.84em;
+  }
+  .dataflow-node {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 18px;
+    background: var(--surface2);
+    border-radius: 8px;
+    border-left: 3px solid var(--accent);
+    transition: background 0.2s;
+  }
+  .dataflow-node:hover { background: rgba(255,255,255,0.04); }
+  .dataflow-node .arrow { color: var(--accent); font-weight: bold; min-width: 60px; }
+  .dataflow-node .file { color: var(--cyan); min-width: 200px; }
+  .dataflow-node .desc { color: var(--text2); font-size: 0.88em; }
+
+  /* ───── Dir Tree ───── */
+  .dir-tree {
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 24px 28px;
+    font-family: "SF Mono", "Fira Code", "Cascadia Code", "Menlo", monospace;
+    font-size: 0.80em;
+    line-height: 1.9;
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .dir-tree .dir  { color: var(--accent); font-weight: 600; }
+  .dir-tree .file { color: var(--text); }
+  .dir-tree .comment { color: #546e7a; font-style: italic; }
+
+  /* ───── Timeline ───── */
+  .timeline { position: relative; padding-left: 36px; }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 13px;
+    top: 8px; bottom: 8px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent), var(--green), var(--orange), var(--purple), var(--cyan));
+    border-radius: 1px;
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 24px;
+    padding: 18px 22px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    transition: border-color 0.2s;
+  }
+  .timeline-item:hover { border-color: rgba(255,255,255,0.15); }
+  .timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -29px; top: 24px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    border: 3px solid var(--bg);
+  }
+  .timeline-item:nth-child(1)::before { background: var(--accent); }
+  .timeline-item:nth-child(2)::before { background: var(--green); }
+  .timeline-item:nth-child(3)::before { background: var(--orange); }
+  .timeline-item:nth-child(4)::before { background: var(--purple); }
+  .timeline-item:nth-child(5)::before { background: var(--cyan); }
+  .timeline-item .phase-label {
+    font-size: 0.73em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+  }
+  .timeline-item:nth-child(1) .phase-label { color: var(--accent); }
+  .timeline-item:nth-child(2) .phase-label { color: var(--green); }
+  .timeline-item:nth-child(3) .phase-label { color: var(--orange); }
+  .timeline-item:nth-child(4) .phase-label { color: var(--purple); }
+  .timeline-item:nth-child(5) .phase-label { color: var(--cyan); }
+
+  /* ───── Principle Boxes ───── */
+  .principle-box {
+    background: var(--surface2);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-top: 12px;
+    font-size: 0.85em;
+    line-height: 1.9;
+  }
+  .principle-box b { color: #fff; }
+
+  /* ───── Footer ───── */
+  .footer {
+    text-align: center;
+    padding: 36px;
+    color: var(--text2);
+    font-size: 0.8em;
+    border-top: 1px solid var(--border);
+    margin-top: 56px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HEADER ═══════════════ -->
+<div class="header">
+  <h1>eduSRC 自动化漏洞扫描 Agent 架构</h1>
+  <p class="subtitle">模块化 &middot; 合规优先 &middot; ROI 驱动 &middot; 通杀联动</p>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════ 核心指标 ═══════════════ -->
+<div class="stats-row">
+  <div class="stat-box">
+    <div class="num">5</div>
+    <div class="label">功能层级 Layers</div>
+  </div>
+  <div class="stat-box">
+    <div class="num">7</div>
+    <div class="label">漏洞检测模块</div>
+  </div>
+  <div class="stat-box">
+    <div class="num">P0-P3</div>
+    <div class="label">四级 ROI 优先级</div>
+  </div>
+  <div class="stat-box">
+    <div class="num">3+</div>
+    <div class="label">合规硬约束</div>
+  </div>
+</div>
+
+<!-- ═══════════════ 1. 整体架构 ═══════════════ -->
+<h2 class="section-title">&#x1F3D7;&#xFE0F; 整体架构：四层管道 + 调度中枢</h2>
+
+<div class="arch-overview">
+
+  <!-- 调度中枢 -->
+  <div class="arch-layer l0">
+    <div class="arch-layer-label">&#x2699;&#xFE0F; 调度中枢<br><small style="font-weight:400;font-size:0.8em;opacity:0.8;">Orchestrator</small></div>
+    <div class="arch-layer-body">
+      <div class="arch-module">&#x1F4CB; 优先级队列</div>
+      <div class="arch-module">&#x1F6A6; QPS 限流器</div>
+      <div class="arch-module">&#x1F6E1;&#xFE0F; Scope Guard</div>
+      <div class="arch-module">&#x1F504; 任务依赖管理</div>
+      <div class="arch-module">&#x1F501; 重试 &amp; 熔断</div>
+      <div class="arch-module">&#x1F4DD; 全流程审计日志</div>
+    </div>
+  </div>
+
+  <!-- L1 资产发现 -->
+  <div class="arch-layer l1">
+    <div class="arch-layer-label">&#x1F50E; L1 资产发现<br><small style="font-weight:400;font-size:0.8em;opacity:0.8;">Discovery</small></div>
+    <div class="arch-layer-body">
+      <div class="arch-module">&#x1F310; 子域名收集<small>OneForAll / Subfinder / Amass</small></div>
+      <div class="arch-module">&#x1F4DC; 证书透明度<small>crt.sh / CertSpotter</small></div>
+      <div class="arch-module">&#x1F5FA;&#xFE0F; 网络测绘<small>FOFA / 鹰图 / Shodan</small></div>
+      <div class="arch-module">&#x1F3E2; ICP 备案反查<small>企查查 / 爱企查</small></div>
+      <div class="arch-module">&#x1F4F1; 小程序/APP<small>CrackMinApp / Charles</small></div>
+    </div>
+  </div>
+
+  <!-- L2 资产分析 -->
+  <div class="arch-layer l2">
+    <div class="arch-layer-label">&#x1F4CA; L2 资产分析<br><small style="font-weight:400;font-size:0.8em;opacity:0.8;">Analysis</small></div>
+    <div class="arch-layer-body">
+      <div class="arch-module">&#x2705; 存活检测<small>httpx (限速模式)</small></div>
+      <div class="arch-module">&#x1F590;&#xFE0F; 指纹识别<small>Wappalyzer / 潮汐指纹</small></div>
+      <div class="arch-module">&#x1F517; URL 收集<small>Katana / Gau / Wayback</small></div>
+      <div class="arch-module">&#x1F4E1; API 发现<small>JS 解析 / FindSomething</small></div>
+      <div class="arch-module">&#x2B50; 价值评分<small>登录口+3 后台+2 CMS+5</small></div>
+    </div>
+  </div>
+
+  <!-- L3 被动检测 -->
+  <div class="arch-layer l3">
+    <div class="arch-layer-label">&#x1F6E1;&#xFE0F; L3 被动检测<br><small style="font-weight:400;font-size:0.8em;opacity:0.8;">Passive</small></div>
+    <div class="arch-layer-body">
+      <div class="arch-module">&#x1F4C2; 敏感路径探测<small>.git/config .env .DS_Store</small></div>
+      <div class="arch-module">&#x1F527; 框架配置缺陷<small>Spring Boot / Laravel / ThinkPHP</small></div>
+      <div class="arch-module">&#x1F419; GitHub 信息泄露<small>password / db / accessKey</small></div>
+      <div class="arch-module">&#x1F4CB; Swagger/Druid 未授权<small>API 文档暴露</small></div>
+      <div class="arch-module">&#x1F4BE; 源码/备份泄露<small>www.zip / backup.sql</small></div>
+    </div>
+  </div>
+
+  <!-- L4 主动验证 -->
+  <div class="arch-layer l4">
+    <div class="arch-layer-label">&#x1F3AF; L4 主动验证<br><small style="font-weight:400;font-size:0.8em;opacity:0.8;">Active</small></div>
+    <div class="arch-layer-body">
+      <div class="arch-module" style="border-color:rgba(231,76,60,0.4);">&#x1F511; P0 弱口令<small style="color:#e74c3c;">3-5次尝试/目标</small></div>
+      <div class="arch-module" style="border-color:rgba(243,156,18,0.4);">&#x1F6AA; P1 未授权访问<small style="color:#f39c12;">返回包修改绕过</small></div>
+      <div class="arch-module" style="border-color:rgba(241,196,15,0.4);">&#x1F504; P2 越权检测<small style="color:#f1c40f;">AI 增强 IDOR</small></div>
+      <div class="arch-module">&#x1F4A3; P3 Nday POC<small>Nuclei 自定义模板</small></div>
+      <div class="arch-module">&#x1F4E4; 文件上传验证<small>后缀 / Content-Type 绕过</small></div>
+      <div class="arch-module">&#x1F489; SQL 注入<small>报错注入轻度验证</small></div>
+    </div>
+  </div>
+
+  <!-- L5 输出报告 -->
+  <div class="arch-layer l5">
+    <div class="arch-layer-label">&#x1F4DD; L5 输出报告<br><small style="font-weight:400;font-size:0.8em;opacity:0.8;">Report</small></div>
+    <div class="arch-layer-body">
+      <div class="arch-module">&#x1F517; 去重 &amp; 聚合<small>同源合并 / 通杀识别</small></div>
+      <div class="arch-module">&#x1F4CA; 评分 &amp; 排序<small>Rank 预估 / 价值排序</small></div>
+      <div class="arch-module">&#x1F4C4; 报告生成<small>Markdown / Jinja2 模板</small></div>
+      <div class="arch-module">&#x1F4EC; 通知推送<small>飞书 / 钉钉 / 企微</small></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════ 2. 合规约束 ═══════════════ -->
+<h2 class="section-title">&#x2696;&#xFE0F; 合规红线：架构内建的硬约束</h2>
+
+<table class="compliance-table">
+  <thead>
+    <tr>
+      <th>约束</th>
+      <th>法规 / 公约依据</th>
+      <th>架构实现</th>
+      <th>级别</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>禁止大规模并发扫描</strong></td>
+      <td>可用性无害化验证原则</td>
+      <td>全局 QPS 限流器（默认 5 req/s，凌晨窗口放宽至 10 req/s）</td>
+      <td><span class="badge badge-red">硬约束</span></td>
+    </tr>
+    <tr>
+      <td><strong>禁止内网渗透 / 横向移动</strong></td>
+      <td>机密性无害化 &mdash; 禁用跳板扫描</td>
+      <td>扫描模块不包含代理转发、C段横向、内网隧道能力</td>
+      <td><span class="badge badge-red">硬约束</span></td>
+    </tr>
+    <tr>
+      <td><strong>禁止拖取 / 篡改数据</strong></td>
+      <td>完整性无害化 &mdash; 不得增删改数据</td>
+      <td>验证模块仅做"存在性证明"，不导出数据内容</td>
+      <td><span class="badge badge-red">硬约束</span></td>
+    </tr>
+    <tr>
+      <td><strong>仅收录教育/人社/中科院资产</strong></td>
+      <td>平台收录范围规定</td>
+      <td>Scope Guard 自动过滤非 .edu.cn / 非授权目标</td>
+      <td><span class="badge badge-orange">软约束（可配）</span></td>
+    </tr>
+    <tr>
+      <td><strong>测试后清理痕迹</strong></td>
+      <td>测试完成及时删除遗留文件</td>
+      <td>每个 Active Probe 有对应的 cleanup 回调</td>
+      <td><span class="badge badge-green">最佳实践</span></td>
+    </tr>
+    <tr>
+      <td><strong>禁止上传 Webshell / 木马</strong></td>
+      <td>文件上传测试规范</td>
+      <td>文件上传 POC 仅上传无害探针文件（.txt / harmless）</td>
+      <td><span class="badge badge-red">硬约束</span></td>
+    </tr>
+    <tr>
+      <td><strong>禁止保存 / 传播获取的数据</strong></td>
+      <td>数据保护义务</td>
+      <td>发现敏感数据仅记录"存在泄露"元信息，不存储实际数据</td>
+      <td><span class="badge badge-red">硬约束</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ═══════════════ 3. 执行流水线 ═══════════════ -->
+<h2 class="section-title">&#x1F504; 扫描执行流水线</h2>
+
+<div class="pipeline">
+  <div class="pipeline-step s1">
+    <div class="step-num">1</div>
+    <div class="step-title">L1 资产发现</div>
+    <div class="step-detail">
+      seed_domains.txt &#x2192;<br>
+      子域名枚举<br>
+      端口发现<br>
+      证书 / ICP 查询
+    </div>
+  </div>
+  <div class="pipeline-arrow">&#x25B8;</div>
+  <div class="pipeline-step s2">
+    <div class="step-num">2</div>
+    <div class="step-title">L2 资产分析</div>
+    <div class="step-detail">
+      存活检测 (httpx)<br>
+      指纹识别<br>
+      URL 路径收集<br>
+      价值评分排序
+    </div>
+  </div>
+  <div class="pipeline-arrow">&#x25B8;</div>
+  <div class="pipeline-step s3">
+    <div class="step-num">3</div>
+    <div class="step-title">L3 被动检测</div>
+    <div class="step-detail">
+      &#x26A1; 零侵入优先<br>
+      敏感路径 GET 探测<br>
+      GitHub 信息搜索<br>
+      框架端点检测
+    </div>
+  </div>
+  <div class="pipeline-arrow">&#x25B8;</div>
+  <div class="pipeline-step s4">
+    <div class="step-num">4</div>
+    <div class="step-title">L4 主动验证</div>
+    <div class="step-detail">
+      按 P0 &#x2192; P3 优先级<br>
+      高价值目标优先<br>
+      通杀自动扩散<br>
+      凌晨窗口执行
+    </div>
+  </div>
+  <div class="pipeline-arrow">&#x25B8;</div>
+  <div class="pipeline-step s5">
+    <div class="step-num">5</div>
+    <div class="step-title">L5 输出报告</div>
+    <div class="step-detail">
+      去重 &amp; 通杀聚合<br>
+      Rank 评分排序<br>
+      Markdown 报告<br>
+      一键提交草稿
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ 4. ROI 优先级体系 ═══════════════ -->
+<h2 class="section-title">&#x1F4C8; ROI 优先级体系（发现成本低 &#x2192; 评分高）</h2>
+
+<div class="roi-grid">
+  <div class="roi-card roi-p0">
+    <span class="prio prio-red">P0 最高优先</span>
+    <h4>弱口令 Weak Password</h4>
+    <div class="cost">发现成本：&#x2B50;&#x2B50; 极低</div>
+    <div class="stars">EDUSRC 评分：7-9（高危）</div>
+    <div class="desc">
+      每目标仅 3-5 次尝试（admin/admin, admin/123456, admin/admin888）。
+      内置教育行业专用字典：身份证后6位、学号后6位、@123456。
+      命中率极高，统一认证 / VPN / 后台系统都是常见入口。
+    </div>
+  </div>
+
+  <div class="roi-card roi-p0">
+    <span class="prio prio-red">P0 最高优先</span>
+    <h4>敏感信息泄露 Info Leak</h4>
+    <div class="cost">发现成本：&#x2B50; 近乎零</div>
+    <div class="stars">EDUSRC 评分：4-10（中危 ~ 严重）</div>
+    <div class="desc">
+      被动探测 .git/config、.env、.DS_Store、/actuator/env 等敏感路径。
+      GitHub 搜索 password / db / accessKey 关键字。
+      全部 GET 请求，零风险，十分钟覆盖数千目标。
+    </div>
+  </div>
+
+  <div class="roi-card roi-p1">
+    <span class="prio prio-orange">P1 高优先</span>
+    <h4>未授权访问 Unauthorized</h4>
+    <div class="cost">发现成本：&#x2B50;&#x2B50; 极低</div>
+    <div class="stars">EDUSRC 评分：7-9（高危）</div>
+    <div class="desc">
+      JS 解析提取隐藏 API 路径，直接 GET 测试。
+      修改登录返回包绕过前端校验。
+      Druid Monitor、Swagger UI、Spring Boot 端点都是重灾区。
+    </div>
+  </div>
+
+  <div class="roi-card roi-p1">
+    <span class="prio prio-orange">P1 高优先</span>
+    <h4>越权漏洞 IDOR</h4>
+    <div class="cost">发现成本：&#x2B50;&#x2B50; 极低</div>
+    <div class="stars">EDUSRC 评分：4-9（中危 ~ 高危）</div>
+    <div class="desc">
+      核心操作：修改请求中 userid / studentId 参数，用另一账号验证。
+      水平越权（看别人数据）、垂直越权（普通用户执行管理操作）。
+      AI 辅助识别参数语义，自动生成越权测试用例。
+    </div>
+  </div>
+
+  <div class="roi-card roi-p2">
+    <span class="prio prio-yellow">P2 中优先</span>
+    <h4>Nday 漏洞 &amp; 通杀</h4>
+    <div class="cost">发现成本：&#x2B50;&#x2B50;&#x2B50; 中等</div>
+    <div class="stars">EDUSRC 评分：7-10（高危 ~ 严重）</div>
+    <div class="desc">
+      指纹识别 &#x2192; 匹配 Nday POC 库 &#x2192; Nuclei 轻量验证。
+      发现一个 CMS 漏洞后，自动在 FOFA 搜索同版本目标扩散验证。
+      若依 / Druid / Spring Boot / GitLab 常见 Nday。
+    </div>
+  </div>
+
+  <div class="roi-card roi-p2">
+    <span class="prio prio-yellow">P2 中优先</span>
+    <h4>逻辑缺陷 Logic Flaw</h4>
+    <div class="cost">发现成本：&#x2B50;&#x2B50;&#x2B50; 中等</div>
+    <div class="stars">EDUSRC 评分：7-9（高危）</div>
+    <div class="desc">
+      任意密码重置、验证码爆破 / 绕过、支付金额篡改。
+      短信 / 邮箱轰炸（发现成本极低，但评分较低 0-4）。
+      AI 分析业务流程，识别异常逻辑路径。
+    </div>
+  </div>
+
+  <div class="roi-card roi-p3">
+    <span class="prio prio-green">P3 常规</span>
+    <h4>文件上传 Getshell</h4>
+    <div class="cost">发现成本：&#x2B50;&#x2B50;&#x2B50; 中等</div>
+    <div class="stars">EDUSRC 评分：7-10（高危 ~ 严重）</div>
+    <div class="desc">
+      后缀绕过、Content-Type 欺骗、截断上传。
+      仅上传无害探针文件证明解析，不上传 Webshell。
+      KindEditor / UEditor / eWebEditor 等编辑器上传漏洞。
+    </div>
+  </div>
+
+  <div class="roi-card roi-p3">
+    <span class="prio prio-green">P3 常规</span>
+    <h4>SQL 注入</h4>
+    <div class="cost">发现成本：&#x2B50;&#x2B50;&#x2B50;&#x2B50; 较高</div>
+    <div class="stars">EDUSRC 评分：7-10（高危 ~ 严重）</div>
+    <div class="desc">
+      报错注入轻度验证，不做深度利用。
+      仅证明注入存在（database 名称 / 版本），不拖取数据。
+      搜索框、登录框、参数过滤不严的接口。
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ 5. 数据流 ═══════════════ -->
+<h2 class="section-title">&#x1F4E1; 数据流设计</h2>
+
+<div class="dataflow">
+  <div class="dataflow-node">
+    <span class="arrow">&#x251C;&#x2500; INPUT</span>
+    <span class="file">seed_domains.txt</span>
+    <span class="desc">用户输入的目标域名列表</span>
+  </div>
+  <div class="dataflow-node">
+    <span class="arrow">&#x251C;&#x2500; L1 &#x2192;</span>
+    <span class="file">assets.json</span>
+    <span class="desc">{domain, ip, port, source, timestamp}</span>
+  </div>
+  <div class="dataflow-node">
+    <span class="arrow">&#x251C;&#x2500; L2 &#x2192;</span>
+    <span class="file">targets.json</span>
+    <span class="desc">{url, title, tech_stack, value_score, is_login, is_admin}</span>
+  </div>
+  <div class="dataflow-node">
+    <span class="arrow">&#x251C;&#x2500; L3 &#x2192;</span>
+    <span class="file">passive_findings.json</span>
+    <span class="desc">{url, vuln_type, evidence_path, confidence: 0.9}</span>
+  </div>
+  <div class="dataflow-node">
+    <span class="arrow">&#x251C;&#x2500; L4 &#x2192;</span>
+    <span class="file">active_findings.json</span>
+    <span class="desc">{url, vuln_type, poc_used, evidence, rank_estimate}</span>
+  </div>
+  <div class="dataflow-node">
+    <span class="arrow">&#x2514;&#x2500; L5 &#x2192;</span>
+    <span class="file">report.md</span>
+    <span class="desc">去重聚合后的最终漏洞报告，含 edusrc 提交草稿</span>
+  </div>
+</div>
+
+<!-- ═══════════════ 6. 通杀联动 + AI ═══════════════ -->
+<div class="grid-2">
+  <div>
+    <h2 class="section-title">&#x1F517; 通杀联动机制</h2>
+    <div class="card">
+      <h3>一洞多吃，自动扩散</h3>
+      <p style="margin-bottom:14px;color:var(--text2);font-size:0.9em;">
+        当 L4 在目标 A 发现一个 Nday 漏洞后，触发通杀链路：
+      </p>
+      <div class="principle-box">
+        <div>&#x2460; 提取漏洞 CMS / 组件名称 + 版本号</div>
+        <div style="color:var(--accent);">&#x2461; &#x2192; FOFA / 鹰图搜索同版本资产</div>
+        <div style="color:var(--accent);">&#x2462; &#x2192; 在 L2 已知资产中匹配同类指纹</div>
+        <div style="color:var(--green);">&#x2463; &#x2192; 自动对同类目标执行该 POC</div>
+        <div style="color:var(--green);">&#x2464; &#x2192; 聚合为"通杀漏洞"报告，一稿多投</div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <h2 class="section-title">&#x1F9E0; AI 增强能力</h2>
+    <div class="card">
+      <h3>LLM 辅助判断，覆盖自动化盲区</h3>
+      <p style="margin-bottom:14px;color:var(--text2);font-size:0.9em;">
+        传统扫描器难以检测的逻辑类漏洞，交给 AI：
+      </p>
+      <div class="principle-box">
+        <div>&#x1F916; <b>越权检测</b> &mdash; 分析 API 参数语义，识别 userid / orderId 等敏感参数，自动生成越权测试用例</div>
+        <div>&#x1F916; <b>逻辑漏洞</b> &mdash; 分析重置密码 / 支付 / 注册等业务流程，发现逻辑缺陷</div>
+        <div>&#x1F916; <b>POC 生成</b> &mdash; 根据漏洞描述和响应特征，自动生成 Nuclei 模板</div>
+        <div>&#x1F916; <b>报告润色</b> &mdash; 自动生成 edusrc 格式的漏洞描述与复现步骤</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ 7. 目录结构 ═══════════════ -->
+<h2 class="section-title">&#x1F4C1; 项目目录结构</h2>
+
+<div class="dir-tree"><span class="dir">edusrc-scanner/</span>
+<span class="dir">├── orchestrator/</span>              <span class="comment"># 调度中枢</span>
+<span class="file">│   ├── scheduler.py</span>             <span class="comment"># 任务调度器（优先级队列 + DAG）</span>
+<span class="file">│   ├── rate_limiter.py</span>          <span class="comment"># QPS 限流器（令牌桶算法）</span>
+<span class="file">│   ├── scope_guard.py</span>           <span class="comment"># 资产范围校验（仅 .edu.cn / 授权目标）</span>
+<span class="file">│   └── config.yaml</span>              <span class="comment"># 全局配置（限速值、时间窗口、API Key）</span>
+<span class="dir">├── modules/</span>
+<span class="dir">│   ├── l1_discovery/</span>            <span class="comment"># 资产发现层</span>
+<span class="file">│   │   ├── subdomain.py</span>          <span class="comment"># 子域名收集（OneForAll / Subfinder / Amass）</span>
+<span class="file">│   │   ├── cert_search.py</span>        <span class="comment"># 证书透明度查询（crt.sh API）</span>
+<span class="file">│   │   ├── fofa_client.py</span>        <span class="comment"># FOFA / 鹰图 / Shodan API 封装</span>
+<span class="file">│   │   └── icp_lookup.py</span>         <span class="comment"># ICP 备案反查</span>
+<span class="dir">│   ├── l2_analysis/</span>             <span class="comment"># 资产分析层</span>
+<span class="file">│   │   ├── alive_check.py</span>        <span class="comment"># httpx 存活检测 + 状态码/Title 提取</span>
+<span class="file">│   │   ├── fingerprint.py</span>        <span class="comment"># Wappalyzer / 潮汐指纹识别</span>
+<span class="file">│   │   ├── url_collect.py</span>        <span class="comment"># URL 收集（Katana / Gau / Waybackurls）</span>
+<span class="file">│   │   └── value_scorer.py</span>       <span class="comment"># 资产价值评分（登录口/后台/CMS 权重）</span>
+<span class="dir">│   ├── l3_passive/</span>              <span class="comment"># 被动检测层 ⚡ 零侵入</span>
+<span class="file">│   │   ├── sensitive_path.py</span>     <span class="comment"># 敏感路径 GET 探测</span>
+<span class="file">│   │   ├── github_search.py</span>      <span class="comment"># GitHub 信息泄露搜索</span>
+<span class="file">│   │   ├── config_leak.py</span>        <span class="comment"># 框架配置缺陷检测</span>
+<span class="file">│   │   └── dicts/</span>               <span class="comment"># 敏感路径字典</span>
+<span class="file">│   │       ├── sensitive_paths.yaml</span>
+<span class="file">│   │       └── framework_endpoints.yaml</span>
+<span class="dir">│   ├── l4_active/</span>               <span class="comment"># 主动验证层</span>
+<span class="file">│   │   ├── weak_pass.py</span>          <span class="comment"># P0 弱口令检测（3-5次/目标）</span>
+<span class="file">│   │   ├── unauth_check.py</span>       <span class="comment"># P1 未授权访问检测</span>
+<span class="file">│   │   ├── idor_check.py</span>         <span class="comment"># P2 AI增强越权检测</span>
+<span class="file">│   │   ├── nday_poc.py</span>           <span class="comment"># P3 Nday漏洞 POC 执行</span>
+<span class="file">│   │   └── poc_templates/</span>        <span class="comment"># Nuclei 自定义 POC 模板库</span>
+<span class="dir">│   └── l5_output/</span>               <span class="comment"># 输出报告层</span>
+<span class="file">│       ├── dedup.py</span>              <span class="comment"># 去重 & 通杀聚合</span>
+<span class="file">│       ├── ranker.py</span>             <span class="comment"># Rank 评分预估</span>
+<span class="file">│       ├── reporter.py</span>           <span class="comment"># Markdown 报告生成（Jinja2）</span>
+<span class="file">│       └── templates/</span>           <span class="comment"># 报告 + edusrc 提交模板</span>
+<span class="dir">├── data/</span>                        <span class="comment"># 运行时数据 & 字典</span>
+<span class="file">│   ├── dicts/</span>
+<span class="file">│   │   ├── weak_passwords_edu.txt</span><span class="comment"> # 教育行业弱口令字典</span>
+<span class="file">│   │   └── default_creds.yaml</span>   <span class="comment"> # 常见系统默认凭据</span>
+<span class="file">│   └── fingerprints/</span>            <span class="comment"> # 组件指纹库</span>
+<span class="dir">├── shared/</span>                      <span class="comment"># 共享模块</span>
+<span class="file">│   ├── models.py</span>                <span class="comment"># 统一数据模型（Asset / Target / Finding）</span>
+<span class="file">│   ├── http_client.py</span>           <span class="comment"># 统一 HTTP 客户端（内置限速）</span>
+<span class="file">│   └── logger.py</span>                <span class="comment"># 全流程审计日志</span>
+<span class="file">└── main.py</span>                      <span class="comment"># 入口（命令行 + 参数解析）</span></div>
+
+<!-- ═══════════════ 8. 实施路线图 ═══════════════ -->
+<h2 class="section-title">&#x1F680; 分阶段实施路线图</h2>
+
+<div class="timeline">
+  <div class="timeline-item">
+    <div class="phase-label">Phase 1 &mdash; 基础设施 + 被动检测</div>
+    <strong style="color:var(--accent);">资产发现 + 存活检测 + 敏感路径探测</strong>
+    <p style="color:var(--text2);margin-top:8px;font-size:0.9em;">
+      搭建项目骨架，实现 L1（子域名+FOFA）+ L2（httpx存活+指纹）+ L3（敏感路径GET探测）。<br>
+      这是整个架构的<b>基座</b>，完成后即可批量产出中危 / 高危漏洞。
+    </p>
+    <p style="font-size:0.8em;color:var(--yellow);margin-top:8px;">&#x26A1; 预计产出：Spring Boot 端点泄露、.git 泄露、.env 泄露、Swagger/Druid 未授权</p>
+  </div>
+  <div class="timeline-item">
+    <div class="phase-label">Phase 2 &mdash; 弱口令 + 未授权访问</div>
+    <strong style="color:var(--green);">高频漏洞，快速上分</strong>
+    <p style="color:var(--text2);margin-top:8px;font-size:0.9em;">
+      实现 P0 弱口令检测（教育行业专用字典，3-5次/目标）和 P1 未授权访问检测（JS解析路径+返回包修改绕过）。<br>
+      接入第一阶段产出的"有登录口"目标列表。
+    </p>
+    <p style="font-size:0.8em;color:var(--yellow);margin-top:8px;">&#x26A1; 预计产出：统一认证弱口令、管理系统弱口令、API 未授权访问</p>
+  </div>
+  <div class="timeline-item">
+    <div class="phase-label">Phase 3 &mdash; Nday POC + 通杀扩散</div>
+    <strong style="color:var(--orange);">一洞多吃，数量翻倍</strong>
+    <p style="color:var(--text2);margin-top:8px;font-size:0.9em;">
+      建立指纹&#x2192;POC映射库，集成 Nuclei 引擎。实现通杀联动：发现漏洞 &#x2192; FOFA搜索同版本 &#x2192; 自动扩散验证。<br>
+      优先覆盖教育行业常见框架：若依、Spring Boot、ThinkPHP、Laravel、Druid、GitLab。
+    </p>
+    <p style="font-size:0.8em;color:var(--yellow);margin-top:8px;">&#x26A1; 预计产出：ThinkPHP RCE、若依弱口令、GitLab Nday、Spring Boot heapdump</p>
+  </div>
+  <div class="timeline-item">
+    <div class="phase-label">Phase 4 &mdash; AI 越权 + 逻辑漏洞</div>
+    <strong style="color:var(--purple);">覆盖传统自动化盲区</strong>
+    <p style="color:var(--text2);margin-top:8px;font-size:0.9em;">
+      集成 LLM API，实现：API参数语义分析&#x2192;越权测试用例生成；业务流程分析&#x2192;逻辑缺陷识别。<br>
+      越权类是 eduSRC 上占比最高的漏洞类型之一，AI 增强可大幅提升自动化覆盖率。
+    </p>
+    <p style="font-size:0.8em;color:var(--yellow);margin-top:8px;">&#x26A1; 预计产出：水平/垂直越权、任意密码重置、验证码绕过</p>
+  </div>
+  <div class="timeline-item">
+    <div class="phase-label">Phase 5 &mdash; 报告自动化 + 运营优化</div>
+    <strong style="color:var(--cyan);">提升交付效率</strong>
+    <p style="color:var(--text2);margin-top:8px;font-size:0.9em;">
+      实现去重聚合、Rank 评分预估、Markdown 报告生成、edusrc 提交草稿一键生成。<br>
+      飞书 / 钉钉通知推送。持续优化字典库、指纹库、POC 模板库。
+    </p>
+    <p style="font-size:0.8em;color:var(--yellow);margin-top:8px;">&#x26A1; 预计产出：全自动报告链，从发现到提交草稿一键完成</p>
+  </div>
+</div>
+
+<!-- ═══════════════ 9. 设计原则 + 风险提示 ═══════════════ -->
+<div class="grid-2">
+  <div>
+    <h2 class="section-title">&#x1F4A1; 设计原则</h2>
+    <div class="card">
+      <h3>核心思路：先铺面，再打点，最后通杀</h3>
+      <div style="font-size:0.9em;color:var(--text2);line-height:2.1;">
+        <div>&#x1F3AF; <b>铺面</b> &mdash; L3 被动检测覆盖所有资产，零成本批量产出</div>
+        <div>&#x1F3AF; <b>打点</b> &mdash; L4 按价值评分 + ROI 优先级，聚焦高价值目标</div>
+        <div>&#x1F3AF; <b>通杀</b> &mdash; 发现一个 CMS 漏洞，自动在所有同类目标扩散</div>
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);line-height:2;">
+          <b>三条铁律：</b><br>
+          &#x2460; 被动优先于主动（先 L3 后 L4）<br>
+          &#x2461; 低侵入优先于高侵入（先弱口令后 SQL 注入）<br>
+          &#x2462; 通杀优先于单点（先扩散后深挖）
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <h2 class="section-title">&#x26A0;&#xFE0F; 风险提示</h2>
+    <div class="card" style="border-color:rgba(231,76,60,0.35);">
+      <h3 style="color:var(--red);">使用此架构前务必注意</h3>
+      <div style="font-size:0.86em;color:var(--text2);line-height:2;">
+        <p>&#x26A0;&#xFE0F; 本架构仅供<b>授权安全测试</b>使用</p>
+        <p>&#x26A0;&#xFE0F; 未经授权对目标进行扫描属于<b>违法行为</b></p>
+        <p>&#x26A0;&#xFE0F; 必须遵守《网络安全法》《网络产品安全漏洞管理规定》</p>
+        <p>&#x26A0;&#xFE0F; 仅可在 eduSRC 收录范围内（教育 / 人社 / 中科院）测试</p>
+        <p>&#x26A0;&#xFE0F; 发现漏洞后应第一时间提交平台，<b>禁止公开披露</b></p>
+        <p>&#x26A0;&#xFE0F; 测试过程中<b>不得获取 / 保存 / 传播</b>任何用户数据</p>
+        <p style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);color:var(--red);font-weight:bold;">
+          &#x26D4; 严禁使用此架构对非授权目标进行任何形式的扫描
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  eduSRC Automated Vulnerability Scanning Agent Architecture &nbsp;|&nbsp; 2026 &nbsp;|&nbsp; For Authorized Security Testing Only
+</div>
+
+</div><!-- .container -->
+
+</body>
+</html>
