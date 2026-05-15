@@ -1,12 +1,15 @@
-"""L4 主动验证 — 未授权访问检测
+"""L4 主动验证 — P1 级未授权访问与越权旁路检测 (UnauthScanner)
 
-探测已知的后台/管理面板端点是否可无需认证直接访问。
-对每个 Target 尝试访问常见管理路径，检测响应是否包含后台管理内容。
+1. 筛选 API/Admin 类 URL + is_login=False 的资产
+2. GET + POST(空参数) 零凭据探测
+3. 遇 401/403 → 伪造 X-Forwarded-For: 127.0.0.1 重试绕过
+4. 200 OK + JSON/敏感字段 → 判定为未授权漏洞
 """
 
 from __future__ import annotations
 
 import asyncio
+import json as _json
 import logging
 from dataclasses import asdict
 from urllib.parse import urljoin
@@ -18,103 +21,247 @@ from shared.models import Finding, FindingSource, VulnSeverity
 
 _log = logging.getLogger(__name__)
 
-# 通用未授权访问探测端点
-_UNAUTH_PATHS = [
-    "/admin/", "/admin/index.php", "/admin/login.aspx",
-    "/manager/", "/manage/", "/console/", "/dashboard/",
-    "/system/", "/backend/", "/panel/",
-    "/druid/index.html", "/druid/login.html",
-    "/swagger-ui.html", "/swagger-ui/index.html",
-    "/actuator", "/actuator/health",
-    "/api-docs", "/v2/api-docs",
-    "/phpinfo.php", "/info.php",
+# AdvancedBypass — 4 层 Header 组合，遇 403 自动轮换
+_BYPASS_COMBOS: list[dict[str, str]] = [
+    # Tier 1: 伪造请求路径 (绕过 URL-based ACL)
+    {"X-Original-URL": "/", "X-Rewrite-URL": "/"},
+    # Tier 2: 伪造网关来源 (绕过 reverse-proxy 限制)
+    {"X-Forwarded-Host": "127.0.0.1",
+     "Forwarded": "for=127.0.0.1;proto=https",
+     "X-Forwarded-Proto": "https"},
+    # Tier 3: 伪造管理权限 (绕过 RBAC)
+    {"X-Admin": "true", "X-Role": "admin",
+     "X-Auth-Token": "admin", "X-Auth-User": "admin"},
+    # Tier 4: 复合 IP 伪造 (绕过 IP whitelist)
+    {"X-Client-IP": "127.0.0.1", "X-Original-For": "127.0.0.1",
+     "X-Forwarded-For": "127.0.0.1", "X-Real-IP": "127.0.0.1",
+     "X-Originating-IP": "127.0.0.1", "X-Remote-IP": "127.0.0.1"},
+]
+
+# ── 敏感信息关键词 (按类别) ──
+# API 结构泄露
+_API_STRUCT = [
+    '"code":0', '"code": 0', '"success":true', '"success": true',
+    '"total":', '"data":', '"list":', '"rows":', '"records":',
+    '"result":', '"items":', '"body":',
+]
+# 凭据/隐私数据 (出现在 JSON 字段名中)
+_PII_FIELDS = [
+    '"username":', '"password":', '"passwd":', '"secret":',
+    '"token":', '"accessKey":', '"access_token":', '"apiKey":',
+    '"email":', '"phone":', '"mobile":', '"idCard":',
+    '"realName":', '"address":', '"birthday":',
+]
+# 数据库/基础设施泄露
+_INFRA_LEAK = [
+    '"jdbc:', 'jdbc:mysql', 'jdbc:oracle', 'jdbc:postgresql',
+    '"datasource":', '"connectionString":',
+    'spring.datasource', 'mongodb://', 'redis://',
+    'DB_HOST', 'DB_PASSWORD', 'APP_KEY',
+]
+
+# 额外探测的管理端点 (追加在目标 base URL 后)
+_ADMIN_PATHS = [
+    "/admin/", "/api/", "/actuator/health", "/actuator/env",
+    "/druid/datasource.json", "/druid/index.html",
+    "/swagger-ui.html", "/v2/api-docs", "/v3/api-docs",
     "/.env",
-    "/elfinder/", "/filemanager/",
-    "/phpmyadmin/", "/phpMyAdmin/", "/adminer.php",
-    "/manager/html", "/host-manager/html", "/manager/status",
-]
-
-# 后台内容特征词
-_ADMIN_BODY_KEYWORDS = [
-    "后台管理", "管理中心", "系统管理", "控制台",
-    "dashboard", "admin panel", "control panel",
-    "用户管理", "角色管理", "权限管理",
-    "系统设置", "网站设置",
-    "user management", "role management",
-    "logout", "退出登录", "注销",
-]
-
-# 强证据关键词 (命中即 HIGH)
-_STRONG_KEYWORDS = [
-    "用户列表", "文章管理", "内容管理",
-    "系统信息", "数据库管理", "数据备份",
-    "user list", "content management",
 ]
 
 
-def _score_admin_body(body: str) -> tuple[int, list[str]]:
+def _is_sensitive(body: str, content_type: str) -> tuple[bool, list[str]]:
+    """检测响应是否包含未授权敏感数据"""
+    hits: list[str] = []
     body_lower = body.lower()
-    hits = [kw for kw in _ADMIN_BODY_KEYWORDS if kw.lower() in body_lower]
-    return len(hits), hits
+
+    # JSON 内容类型加成
+    is_json = "application/json" in content_type.lower()
+
+    for kw in _API_STRUCT:
+        if kw.lower() in body_lower:
+            hits.append(kw)
+    for kw in _PII_FIELDS:
+        if kw.lower() in body_lower:
+            hits.append(kw)
+    for kw in _INFRA_LEAK:
+        if kw.lower() in body_lower:
+            hits.append(kw)
+
+    # 判定阈值: JSON 格式 + ≥1 个命中 或 ≥3 个命中
+    if is_json and len(hits) >= 1:
+        return True, hits
+    if len(hits) >= 3:
+        return True, hits
+    return False, []
 
 
-def _score_strong(body: str) -> list[str]:
-    body_lower = body.lower()
-    return [kw for kw in _STRONG_KEYWORDS if kw.lower() in body_lower]
+class UnauthScanner:
+    """未授权访问与越权旁路检测扫描器
+
+    用法:
+        scanner = UnauthScanner(session, logger)
+        findings = await scanner.scan(targets)
+    """
+
+    def __init__(self, session, logger):
+        self.session = session
+        self.logger = logger
+
+    # ── public API ──
+
+    async def scan(self, targets: list[dict]) -> list[Finding]:
+        """对目标列表执行未授权访问检测"""
+        candidates = self._select_targets(targets)
+        if not candidates:
+            self.logger.info("unauth_skip", reason="no_candidates")
+            return []
+
+        self.logger.info("unauth_start", candidate_count=len(candidates))
+
+        sem = asyncio.Semaphore(5)
+        findings: list[Finding] = []
+
+        async def probe_one(target: dict):
+            async with sem:
+                results = await self._probe_target(target)
+                findings.extend(results)
+
+        await asyncio.gather(*[probe_one(t) for t in candidates])
+
+        self.logger.info("unauth_done", total=len(findings))
+        return findings
+
+    # ── target selection ──
+
+    @staticmethod
+    def _select_targets(targets: list[dict]) -> list[dict]:
+        """筛选高价值目标: /api/ /admin/ /system/ /user/ + is_login=False"""
+        high_value = []
+        for t in targets:
+            url = t.get("url", "").lower()
+            score = 0
+            for frag in ("/api/", "/api/v", "/admin/", "/system/", "/user/",
+                         "/manage/", "/console/", "/backend/"):
+                if frag in url:
+                    score += 2
+            if not t.get("is_login", True):
+                score += 1
+            if score >= 1:
+                high_value.append(t)
+        return high_value
+
+    # ── per-target probe ──
+
+    async def _probe_target(self, target: dict) -> list[Finding]:
+        """探测单个目标及其管理端点"""
+        url = target.get("url", "")
+        if not url:
+            return []
+
+        findings: list[Finding] = []
+
+        # 1) 直接探测目标 URL (GET + POST)
+        for method in ("GET", "POST"):
+            f = await self._check_endpoint(url, method, bypass_used=False)
+            if f:
+                findings.append(f)
+
+        # 2) 探测常见管理子路径 (仅 GET，限 5 条)
+        for path in _ADMIN_PATHS[:5]:
+            endpoint = urljoin(url.rstrip("/") + "/", path.lstrip("/"))
+            f = await self._check_endpoint(endpoint, "GET", bypass_used=False)
+            if f:
+                findings.append(f)
+                break  # 命中一条即止
+
+        return findings
+
+    async def _check_endpoint(self, url: str, method: str,
+                              bypass_used: bool = False) -> Finding | None:
+        """探测单个端点，遇 403 自动轮换 AdvancedBypass 四层 Header 组合"""
+        hit, body, content_type, status = await self._request(url, method, {})
+
+        # AdvancedBypass: 401/403 → 依序尝试 4 层 Header 组合
+        bypass_tier = 0
+        if not hit and status in (401, 403):
+            for tier_idx, combo in enumerate(_BYPASS_COMBOS, 1):
+                hit, body, content_type, status = await self._request(
+                    url, method, combo
+                )
+                if hit:
+                    bypass_used = True
+                    bypass_tier = tier_idx
+                    break
+
+        if not hit:
+            return None
+
+        hits = _is_sensitive(body, content_type)[1]
+
+        severity = VulnSeverity.HIGH
+        for kw in hits:
+            if any(leak in kw.lower() for leak in ("jdbc:", "password", "token",
+                                                     "secret", "accesskey")):
+                severity = VulnSeverity.CRITICAL
+                break
+
+        evidence = f"HTTP {status} method={method}"
+        if bypass_used:
+            tier_labels = {1: "path_forgery", 2: "gateway_forgery",
+                          3: "auth_forgery", 4: "composite_ip"}
+            evidence += f" bypass={tier_labels.get(bypass_tier, 'tier_%d'%bypass_tier)}"
+        evidence += f" content_type={content_type[:60]} hits={hits[:6]}"
+
+        return Finding(
+            url=url,
+            vuln_type="unauth",
+            severity=severity,
+            title=f"未授权访问: {url}",
+            evidence=evidence,
+            confidence=0.85 if len(hits) >= 3 else 0.65,
+            source=FindingSource.L4_ACTIVE,
+            source_module="unauth_check",
+            raw={
+                "method": method,
+                "status_code": status,
+                "bypass_used": bypass_used,
+                "bypass_tier": bypass_tier,
+                "content_type": content_type,
+                "sensitive_hits": hits[:10],
+                "body_preview": body[:300],
+            },
+        )
+
+    async def _request(self, url: str, method: str,
+                       extra_headers: dict) -> tuple[bool, str, str, int]:
+        """发送零凭据请求，返回 (is_hit, body, content_type, status)"""
+        try:
+            if method == "POST":
+                resp = await self.session.post(url, data="", headers=extra_headers)
+            else:
+                resp = await self.session.get(url, headers=extra_headers)
+        except (aiohttp.ClientError, asyncio.TimeoutError) as e:
+            _log.debug("unauth_req_failed url=%s error=%s", url, e)
+            return False, "", "", 0
+
+        status = resp.status
+
+        if status != 200:
+            return False, "", "", status
+
+        body = ""
+        content_type = resp.headers.get("Content-Type", "")
+        try:
+            body = await resp.text()
+            body = body[:65536]
+        except (aiohttp.ClientError, asyncio.TimeoutError) as e:
+            _log.debug("unauth_body_failed url=%s error=%s", url, e)
+
+        sensitive, _ = _is_sensitive(body, content_type)
+        return sensitive, body, content_type, status
 
 
-async def _probe_unauth(base_url: str, path: str, session) -> Finding | None:
-    target_url = urljoin(base_url.rstrip("/") + "/", path.lstrip("/"))
-
-    try:
-        resp = await session.get(target_url)
-    except (aiohttp.ClientError, asyncio.TimeoutError) as e:
-        _log.debug("unauth_get_failed url=%s error=%s", target_url, e)
-        return None
-
-    if resp.status in {401, 403}:
-        return None
-
-    location = resp.headers.get("Location", "").lower()
-    if resp.status in {301, 302, 307} and any(
-        kw in location for kw in ("login", "signin", "auth")
-    ):
-        return None
-
-    try:
-        body = await resp.text()
-        body = body[:32768]
-    except (aiohttp.ClientError, asyncio.TimeoutError) as e:
-        _log.debug("unauth_body_failed url=%s error=%s", target_url, e)
-        return None
-
-    kw_count, kw_hits = _score_admin_body(body)
-    strong_hits = _score_strong(body)
-
-    if kw_count < 3 and not strong_hits:
-        return None
-
-    severity = VulnSeverity.HIGH if strong_hits else VulnSeverity.MEDIUM
-    confidence = 0.80 if strong_hits else 0.60
-
-    return Finding(
-        url=target_url,
-        vuln_type="unauth",
-        severity=severity,
-        title=f"未授权访问: {path}",
-        evidence=f"HTTP {resp.status} admin_keywords={kw_hits[:5]}"
-                f"{' strong=' + str(strong_hits) if strong_hits else ''}",
-        confidence=confidence,
-        source=FindingSource.L4_ACTIVE,
-        source_module="unauth_check",
-        raw={
-            "endpoint": path,
-            "status_code": resp.status,
-            "admin_keywords": kw_hits[:10],
-            "strong_evidence": strong_hits,
-        },
-    )
-
+# ── 模块入口 ──
 
 @register("unauth_check")
 async def run(context: dict) -> dict:
@@ -122,37 +269,6 @@ async def run(context: dict) -> dict:
     session = context["session"]
     logger = context["logger"]
 
-    if not targets:
-        logger.info("unauth_check_skip", reason="no_targets")
-        return {"findings": []}
-
-    logger.info("unauth_check_start", target_count=len(targets),
-                path_count=len(_UNAUTH_PATHS))
-
-    sem = asyncio.Semaphore(5)
-    findings: list[Finding] = []
-
-    async def probe_target(target: dict):
-        url = target.get("url", "")
-        if not url:
-            return
-        async with sem:
-            for path in _UNAUTH_PATHS:
-                finding = await _probe_unauth(url, path, session)
-                if finding is not None:
-                    findings.append(finding)
-                await asyncio.sleep(0.2)
-            await asyncio.sleep(0.3)
-
-    task_limit = min(len(targets), 10)
-    for i in range(0, len(targets), task_limit):
-        batch = targets[i:i + task_limit]
-        await asyncio.gather(*[probe_target(t) for t in batch])
-
-    by_sev: dict[str, int] = {}
-    for f in findings:
-        by_sev[f.severity.value] = by_sev.get(f.severity.value, 0) + 1
-
-    logger.info("unauth_check_done", total_findings=len(findings), by_severity=by_sev)
-
+    scanner = UnauthScanner(session, logger)
+    findings = await scanner.scan(targets)
     return {"findings": [asdict(f) for f in findings]}

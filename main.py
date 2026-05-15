@@ -97,9 +97,8 @@ def main(domain: str | None, file: str | None, dry_run: bool,
     out_dir.mkdir(parents=True, exist_ok=True)
 
     # 保存 findings.json
-    import json as _json
-    (_out / "findings.json").write_text(_json.dumps(findings, ensure_ascii=False, indent=2), encoding="utf-8")
-    click.echo(f"[+] 发现 {len(findings)} 个漏洞，已写入 {_out / 'findings.json'}")
+    (out_dir / "findings.json").write_text(json.dumps(findings, ensure_ascii=False, indent=2), encoding="utf-8")
+    click.echo(f"[+] 发现 {len(findings)} 个漏洞，已写入 {out_dir / 'findings.json'}")
 
     # 保存 targets.json
     all_targets = []

@@ -19,6 +19,7 @@ http:
   max_redirects: 3
   retry: 2                 # 失败重试次数
   verify_ssl: true         # 验证 SSL 证书（仅内网/自签名环境可设为 false）
+  spoof_local_ip: true    # 注入 X-Forwarded-For: 127.0.0.1 等 IP 伪造头 (绕过 WAF/网关)
 
 # --- 范围 ---
 scope:

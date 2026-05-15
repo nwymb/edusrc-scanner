@@ -1,0 +1,90 @@
+[
+  {
+    "url": "https://www.sdjtu.edu.cn",
+    "title": "山东交通学院",
+    "status_code": 200,
+    "tech_stack": [],
+    "fingerprint": "",
+    "value_score": 0,
+    "is_login": false,
+    "is_admin": false,
+    "timestamp": "2026-05-16T00:12:06.197510"
+  },
+  {
+    "url": "https://kyc.sdjtu.edu.cn",
+    "title": "山东交通学院科研处",
+    "status_code": 200,
+    "tech_stack": [],
+    "fingerprint": "",
+    "value_score": 0,
+    "is_login": false,
+    "is_admin": false,
+    "timestamp": "2026-05-16T00:12:06.403470"
+  },
+  {
+    "url": "https://portal.sdjtu.edu.cn",
+    "title": "epx-frame",
+    "status_code": 200,
+    "tech_stack": [],
+    "fingerprint": "",
+    "value_score": 0,
+    "is_login": false,
+    "is_admin": false,
+    "timestamp": "2026-05-16T00:12:11.299278"
+  },
+  {
+    "url": "https://en.sdjtu.edu.cn",
+    "title": "SHANDONG JIAOTONG UNIVERSITY",
+    "status_code": 200,
+    "tech_stack": [],
+    "fingerprint": "",
+    "value_score": 0,
+    "is_login": false,
+    "is_admin": false,
+    "timestamp": "2026-05-16T00:12:11.345503"
+  },
+  {
+    "url": "https://mail.sdjtu.edu.cn",
+    "title": "交通学院邮件系统",
+    "status_code": 200,
+    "tech_stack": [],
+    "fingerprint": "",
+    "value_score": 0,
+    "is_login": false,
+    "is_admin": false,
+    "timestamp": "2026-05-16T00:12:11.629903"
+  },
+  {
+    "url": "https://lib.sdjtu.edu.cn",
+    "title": "图书馆",
+    "status_code": 200,
+    "tech_stack": [],
+    "fingerprint": "",
+    "value_score": 0,
+    "is_login": false,
+    "is_admin": false,
+    "timestamp": "2026-05-16T00:12:14.582902"
+  },
+  {
+    "url": "https://recruit.sdjtu.edu.cn",
+    "title": "epx-frame",
+    "status_code": 200,
+    "tech_stack": [],
+    "fingerprint": "",
+    "value_score": 0,
+    "is_login": false,
+    "is_admin": false,
+    "timestamp": "2026-05-16T00:12:15.016767"
+  },
+  {
+    "url": "https://jwc.sdjtu.edu.cn",
+    "title": "教务处",
+    "status_code": 200,
+    "tech_stack": [],
+    "fingerprint": "",
+    "value_score": 0,
+    "is_login": false,
+    "is_admin": false,
+    "timestamp": "2026-05-16T00:12:16.592341"
+  }
+]

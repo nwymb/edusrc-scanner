@@ -205,3 +205,29 @@ paths:
     description: "Laravel 日志目录"
     severity: high
     category: log
+
+  # ── 邮件系统 ──
+  - path: "/webmail/"
+    description: "Webmail 入口"
+    severity: medium
+    category: mail_systems
+  - path: "/coremail/"
+    description: "Coremail 邮件系统"
+    severity: medium
+    category: mail_systems
+  - path: "/session/login"
+    description: "邮件系统会话登录"
+    severity: medium
+    category: mail_systems
+  - path: "/interface/"
+    description: "邮件系统接口端点"
+    severity: medium
+    category: mail_systems
+  - path: "/api/manager/"
+    description: "邮件管理 API"
+    severity: high
+    category: mail_systems
+  - path: "/sys/admin/login"
+    description: "邮件系统管理员登录"
+    severity: medium
+    category: mail_systems

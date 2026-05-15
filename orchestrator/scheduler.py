@@ -35,6 +35,7 @@ MODULE_PHASE: dict[str, ScanPhase] = {
     "weak_pass":     ScanPhase.ACTIVE,
     "unauth_check":  ScanPhase.ACTIVE,
     "idor_check":    ScanPhase.ACTIVE,
+    "nuclei_scanner": ScanPhase.ACTIVE,
     "nday_poc":      ScanPhase.ACTIVE,
     # L5
     "dedup":         ScanPhase.REPORT,
@@ -105,7 +106,7 @@ class Scheduler:
                                       priority=3, depends_on=["alive_check"]))
 
             # L4 (依赖 L3 的执行结果)
-            for m in ["weak_pass", "unauth_check", "idor_check", "nday_poc"]:
+            for m in ["nuclei_scanner", "weak_pass", "unauth_check", "idor_check", "nday_poc"]:
                 if m in modules:
                     task_id += 1
                     plan.add(ScanTask(id=str(task_id), module=m, target=seed,
@@ -135,6 +136,7 @@ class Scheduler:
             max_redirects=cfg_http.get("max_redirects", 3),
             retry=cfg_http.get("retry", 2),
             verify_ssl=cfg_http.get("verify_ssl", True),
+            spoof_local_ip=cfg_http.get("spoof_local_ip", False),
         )
 
         sem = asyncio.Semaphore(max_concurrency)
@@ -194,6 +196,21 @@ class Scheduler:
                         phase_targets.setdefault(t.target, []).extend(r.get("targets", []))
                     elif phase in (ScanPhase.PASSIVE, ScanPhase.ACTIVE):
                         phase_findings.extend(r.get("findings", []))
+
+                # 兜底: L1 无产出时注入 seed domain 作为保底资产
+                if phase == ScanPhase.DISCOVERY:
+                    all_seeds = {t.target for t in plan.tasks}
+                    for seed in all_seeds:
+                        if not phase_assets.get(seed):
+                            fallback = {
+                                "domain": seed,
+                                "ip": None,
+                                "port": None,
+                                "source": "fallback",
+                            }
+                            phase_assets[seed] = [fallback]
+                            self.logger.info("fallback_asset", seed=seed,
+                                             reason="L1_no_discovery")
 
         finally:
             await session.close()

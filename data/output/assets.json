@@ -1,0 +1,65 @@
+[
+  {
+    "domain": "www.sdjtu.edu.cn",
+    "ip": "211.64.127.145",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-16T00:12:05.111089"
+  },
+  {
+    "domain": "mail.sdjtu.edu.cn",
+    "ip": "211.64.127.182",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-16T00:12:05.111204"
+  },
+  {
+    "domain": "portal.sdjtu.edu.cn",
+    "ip": "211.64.127.145",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-16T00:12:05.111233"
+  },
+  {
+    "domain": "hr.sdjtu.edu.cn",
+    "ip": "192.168.252.129",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-16T00:12:05.111255"
+  },
+  {
+    "domain": "jwc.sdjtu.edu.cn",
+    "ip": "211.64.127.145",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-16T00:12:05.111279"
+  },
+  {
+    "domain": "lib.sdjtu.edu.cn",
+    "ip": "211.64.127.145",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-16T00:12:05.111300"
+  },
+  {
+    "domain": "recruit.sdjtu.edu.cn",
+    "ip": "211.64.127.145",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-16T00:12:05.111321"
+  },
+  {
+    "domain": "kyc.sdjtu.edu.cn",
+    "ip": "211.64.127.145",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-16T00:12:05.111342"
+  },
+  {
+    "domain": "en.sdjtu.edu.cn",
+    "ip": "211.64.127.145",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-16T00:12:05.111365"
+  }
+]

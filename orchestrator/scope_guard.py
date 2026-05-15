@@ -22,11 +22,7 @@ class ScopeGuard:
         if not domain:
             return False
         domain = domain.lower()
-        if any(domain.endswith(suffix) for suffix in self.allowed_suffixes):
-            return True
-        if any(kw in domain for kw in self.allowed_keywords):
-            return True
-        return False
+        return any(domain.endswith(suffix) for suffix in self.allowed_suffixes)
 
     def filter_assets(self, assets: list[str]) -> list[str]:
         """过滤列表，返回范围内的资产"""

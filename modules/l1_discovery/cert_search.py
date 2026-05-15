@@ -30,6 +30,9 @@ async def run(context: dict) -> dict:
         url = f"https://crt.sh/?q={q}&output=json"
         try:
             resp = await session.get(url)
+            if resp.status != 200:
+                _log.debug("crtsh_unavailable source=%s status=%s", source_label, resp.status)
+                return
             text = await resp.text()
             data = json.loads(JSON_CLEAN_RE.sub("", text))
             for entry in data:
@@ -44,9 +47,10 @@ async def run(context: dict) -> dict:
                     if org:
                         asset_dict["org"] = org
                     assets.append(asset_dict)
-        except (aiohttp.ClientError, asyncio.TimeoutError, json.JSONDecodeError,
-                UnicodeDecodeError, ValueError) as e:
-            _log.warning("crtsh_query_failed source=%s error=%s", source_label, e)
+        except (json.JSONDecodeError, UnicodeDecodeError, ValueError) as e:
+            _log.debug("crtsh_parse_failed source=%s error=%s", source_label, e)
+        except (aiohttp.ClientError, asyncio.TimeoutError) as e:
+            _log.debug("crtsh_request_failed source=%s error=%s", source_label, e)
 
     await query_crt(f"%25.{domain}", "crtsh_wildcard")
     logger.info("cert_wildcard_done", domain=domain, so_far=len(assets))

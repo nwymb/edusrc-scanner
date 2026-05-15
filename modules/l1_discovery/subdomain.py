@@ -67,9 +67,12 @@ def _load_wordlist(config: dict) -> list[str]:
 
 async def _crt_fetch(domain: str, session) -> list[str]:
     url = f"https://crt.sh/?q=%.{domain}&output=json"
-    subs = set()
+    subs: set[str] = set()
     try:
         resp = await session.get(url)
+        if resp.status != 200:
+            _log.debug("crtsh_unavailable domain=%s status=%s", domain, resp.status)
+            return list(subs)
         text = await resp.text()
         cleaned = JSON_CLEAN_RE.sub("", text)
         data = json.loads(cleaned)
@@ -79,9 +82,10 @@ async def _crt_fetch(domain: str, session) -> list[str]:
                 n = n.strip().lower().lstrip("*.")
                 if n and n.endswith(domain) and n != domain:
                     subs.add(n)
-    except (aiohttp.ClientError, asyncio.TimeoutError, json.JSONDecodeError,
-            UnicodeDecodeError, ValueError) as e:
-        _log.warning("crtsh_fetch_failed domain=%s error=%s", domain, e)
+    except (json.JSONDecodeError, UnicodeDecodeError, ValueError) as e:
+        _log.debug("crtsh_parse_failed domain=%s error=%s", domain, e)
+    except (aiohttp.ClientError, asyncio.TimeoutError) as e:
+        _log.debug("crtsh_request_failed domain=%s error=%s", domain, e)
     return list(subs)
 
 

@@ -1,0 +1,36 @@
+[
+  {
+    "url": "https://mail.sdjtu.edu.cn/manager/login",
+    "vuln_type": "sensitive_path",
+    "severity": "info",
+    "title": "通用管理登录",
+    "evidence": "HTTP 403",
+    "confidence": 0.6,
+    "rank_estimate": 0.0,
+    "source": "l3_passive",
+    "source_module": "sensitive_path",
+    "raw": {
+      "category": "admin",
+      "status_code": 403,
+      "body_preview": ""
+    },
+    "timestamp": "2026-05-16T00:12:53.110239"
+  },
+  {
+    "url": "https://mail.sdjtu.edu.cn/coremail/",
+    "vuln_type": "sensitive_path",
+    "severity": "medium",
+    "title": "Coremail 邮件系统",
+    "evidence": "HTTP 200",
+    "confidence": 0.6,
+    "rank_estimate": 0.0,
+    "source": "l3_passive",
+    "source_module": "sensitive_path",
+    "raw": {
+      "category": "mail_systems",
+      "status_code": 200,
+      "body_preview": ""
+    },
+    "timestamp": "2026-05-16T00:13:04.206640"
+  }
+]
