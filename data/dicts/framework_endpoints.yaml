@@ -1,0 +1,153 @@
+# 框架端点字典 — 按指纹定向探测
+# key = L2 fingerprint 能识别的框架名 (与 cms_patterns.yaml 中 name 字段对齐)
+# 每个框架: paths (GET 探测路径), content_markers (响应内容敏感信息特征)
+
+frameworks:
+  Spring Boot:
+    paths:
+      - "/actuator/env"
+      - "/actuator/mappings"
+      - "/actuator/heapdump"
+      - "/actuator/beans"
+      - "/actuator/configprops"
+      - "/actuator/loggers"
+      - "/actuator/metrics"
+      - "/actuator/trace"
+      - "/actuator/gateway/routes"
+      - "/env"
+      - "/mappings"
+    content_markers:
+      - "spring.datasource"
+      - "spring.cloud"
+      - "com.microsoft.sqlserver"
+      - "jdbc:mysql"
+      - "jdbc:oracle"
+      - "jdbc:postgresql"
+      - "DB_PASSWORD"
+      - "DB_USERNAME"
+      - "secretKey"
+      - "accessKey"
+
+  Laravel:
+    paths:
+      - "/.env"
+      - "/storage/logs/laravel.log"
+      - "/_debugbar/"
+      - "/_ignition/health-check"
+      - "/.env.example"
+      - "/.env.backup"
+      - "/storage/logs/"
+    content_markers:
+      - "APP_KEY"
+      - "DB_PASSWORD"
+      - "REDIS_PASSWORD"
+      - "MAIL_PASSWORD"
+      - "AWS_SECRET_ACCESS_KEY"
+
+  Django:
+    paths:
+      - "/admin/"
+      - "/api/v1/"
+      - "/graphql"
+      - "/api/"
+      - "/staticfiles/"
+      - "/media/"
+    content_markers:
+      - "SECRET_KEY"
+      - "DATABASE_URL"
+      - "DATABASES"
+      - "django.contrib"
+
+  ThinkPHP:
+    paths:
+      - "/index.php?s="
+      - "/public/index.php"
+      - "/runtime/log/"
+      - "/app/"
+      - "/data/"
+    content_markers:
+      - "DB_TYPE"
+      - "DB_HOST"
+      - "DB_NAME"
+      - "TMPL_EXCEPTION_FILE"
+      - "SHOW_PAGE_TRACE"
+      - "thinkphp"
+
+  Apache Struts:
+    paths:
+      - "/struts/"
+      - "/struts2-showcase/"
+      - "/struts2-rest-showcase/"
+      - "/login.action"
+      - "/index.action"
+      - "/index.do"
+    content_markers:
+      - "org.apache.struts"
+      - "struts.devMode"
+      - "struts.configuration"
+
+  Tomcat:
+    paths:
+      - "/manager/html"
+      - "/host-manager/html"
+      - "/manager/status"
+      - "/docs/"
+      - "/examples/"
+    content_markers:
+      - "Apache Tomcat"
+      - "tomcat-users.xml"
+      - "Catalina"
+
+  WordPress:
+    paths:
+      - "/wp-admin/"
+      - "/wp-config.php.bak"
+      - "/wp-config.php~"
+      - "/wp-content/debug.log"
+      - "/wp-json/wp/v2/users"
+      - "/xmlrpc.php"
+    content_markers:
+      - "DB_PASSWORD"
+      - "DB_USER"
+      - "AUTH_KEY"
+      - "SECURE_AUTH_KEY"
+
+  DedeCMS:
+    paths:
+      - "/data/admin/"
+      - "/dede/"
+      - "/plus/"
+      - "/include/"
+    content_markers:
+      - "cfg_dbhost"
+      - "cfg_dbname"
+      - "cfg_dbpass"
+
+  TRS WCM:
+    paths:
+      - "/wcm/"
+      - "/trs/"
+      - "/admin/"
+    content_markers:
+      - "TRS"
+      - "wcm"
+
+  SiteServer CMS:
+    paths:
+      - "/siteserver/"
+      - "/api/"
+      - "/home/"
+    content_markers:
+      - "siteserver"
+      - "SiteServer"
+
+  # 通用端点 (无指纹匹配时使用)
+  _default:
+    paths:
+      - "/.env"
+      - "/admin/"
+      - "/api/"
+    content_markers:
+      - "password"
+      - "connectionString"
+      - "jdbc:"

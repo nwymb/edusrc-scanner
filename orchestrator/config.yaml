@@ -18,6 +18,7 @@ http:
   user_agent: "Mozilla/5.0 (compatible; eduSRC-Scanner/0.1; +https://github.com/nwymb/edusrc-scanner)"
   max_redirects: 3
   retry: 2                 # 失败重试次数
+  verify_ssl: true         # 验证 SSL 证书（仅内网/自签名环境可设为 false）
 
 # --- 范围 ---
 scope:
@@ -33,6 +34,18 @@ scope:
     - "学校"
     - "中科院"
     - "人社"
+
+# --- 外部 API ---
+# 密钥可通过环境变量提供: FOFA_EMAIL, FOFA_KEY, HUNTER_KEY
+# 请勿在此文件中填写真实密钥并提交到版本控制
+apis:
+  fofa:
+    email: ""                # FOFA 邮箱
+    key: ""                  # FOFA API Key
+    enabled: false
+  hunter:
+    key: ""                  # 鹰图 API Key
+    enabled: false
 
 # --- 日志 ---
 logging:

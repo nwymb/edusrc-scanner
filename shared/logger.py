@@ -6,16 +6,12 @@ from pathlib import Path
 
 
 class AuditLogger:
-    """JSON 行式审计日志，每步操作可追踪"""
+    """JSON 行式审计日志"""
 
     def __init__(self, log_file: str | Path = "audit.log"):
         self.log_file = Path(log_file)
-        self._init_file()
-
-    def _init_file(self):
         self.log_file.parent.mkdir(parents=True, exist_ok=True)
-        if not self.log_file.exists():
-            self.log_file.write_text("")
+        self._fh = open(self.log_file, "a")
 
     def _emit(self, level: str, message: str, **extra):
         record = {
@@ -25,8 +21,8 @@ class AuditLogger:
             **extra,
         }
         line = json.dumps(record, ensure_ascii=False)
-        with open(self.log_file, "a") as f:
-            f.write(line + "\n")
+        self._fh.write(line + "\n")
+        self._fh.flush()
 
     def info(self, message: str, **extra):
         self._emit("INFO", message, **extra)
@@ -39,6 +35,13 @@ class AuditLogger:
 
     def finding(self, message: str, **extra):
         self._emit("FINDING", message, **extra)
+
+    def close(self):
+        if not self._fh.closed:
+            self._fh.close()
+
+    def __del__(self):
+        self.close()
 
 
 # 标准库 logging 兼容桥，方便第三方库接入

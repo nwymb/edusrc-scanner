@@ -14,7 +14,8 @@ class RateLimitedSession:
 
     def __init__(self, qps: float = 5.0, timeout: float = 15.0,
                  user_agent: str = "eduSRC-Scanner/0.1",
-                 max_redirects: int = 3, retry: int = 2):
+                 max_redirects: int = 3, retry: int = 2,
+                 verify_ssl: bool = True):
         self.qps = qps
         self.timeout = aiohttp.ClientTimeout(total=timeout)
         self.user_agent = user_agent
@@ -23,8 +24,9 @@ class RateLimitedSession:
         self.limiter = get_limiter(default_qps=qps)
         self._session: Optional[aiohttp.ClientSession] = None
         self._ssl_context = ssl.create_default_context()
-        self._ssl_context.check_hostname = False
-        self._ssl_context.verify_mode = ssl.CERT_NONE
+        if not verify_ssl:
+            self._ssl_context.check_hostname = False
+            self._ssl_context.verify_mode = ssl.CERT_NONE
 
     async def _get_session(self) -> aiohttp.ClientSession:
         if self._session is None or self._session.closed:
@@ -50,6 +52,21 @@ class RateLimitedSession:
             try:
                 resp = await session.get(url, allow_redirects=True,
                                          max_redirects=self.max_redirects, **kwargs)
+                return resp
+            except (aiohttp.ClientError, asyncio.TimeoutError) as e:
+                if attempt == self.retry:
+                    raise
+                await asyncio.sleep(1 * (attempt + 1))
+
+    async def post(self, url: str, **kwargs) -> aiohttp.ClientResponse:
+        """带限速的 POST 请求"""
+        bucket = self.limiter.get_bucket(self._domain_from_url(url))
+        for attempt in range(self.retry + 1):
+            await bucket.acquire()
+            session = await self._get_session()
+            try:
+                resp = await session.post(url, allow_redirects=True,
+                                          max_redirects=self.max_redirects, **kwargs)
                 return resp
             except (aiohttp.ClientError, asyncio.TimeoutError) as e:
                 if attempt == self.retry:

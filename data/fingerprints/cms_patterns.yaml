@@ -1,0 +1,121 @@
+# CMS / 框架指纹规则
+# 每条规则: name, category, patterns(header), body_patterns, path_patterns
+
+rules:
+  # --- Java 系 ---
+  - name: Apache Struts
+    category: Framework
+    patterns:
+      - "x-struts-action"
+  - name: Apache Shiro
+    category: Framework
+    patterns:
+      - "rememberMe=deleteMe"
+    body_patterns:
+      - "org.apache.shiro"
+  - name: Spring Boot
+    category: Framework
+    patterns:
+      - "X-Application-Context"
+  - name: Tomcat
+    category: Server
+    patterns:
+      - "Apache-Coyote"
+
+  # --- PHP 系 ---
+  - name: PHP
+    category: Language
+    patterns:
+      - "X-Powered-By: PHP"
+      - "Set-Cookie: PHPSESSID"
+  - name: ThinkPHP
+    category: Framework
+    body_patterns:
+      - "ThinkPHP"
+      - "/thinkphp/"
+  - name: Laravel
+    category: Framework
+    patterns:
+      - "Set-Cookie: laravel_session"
+    body_patterns:
+      - "laravel"
+  - name: WordPress
+    category: CMS
+    body_patterns:
+      - "wp-content"
+      - "wp-includes"
+    path_patterns:
+      - "/wp-login.php"
+      - "/wp-admin/"
+  - name: DedeCMS
+    category: CMS
+    body_patterns:
+      - "dedecms"
+      - "/templets/"
+
+  # --- 教育行业 CMS ---
+  - name: TRS WCM
+    category: CMS
+    body_patterns:
+      - "TRS"
+      - "trs_wcm"
+  - name: SiteServer CMS
+    category: CMS
+    body_patterns:
+      - "siteserver"
+      - "SiteServer"
+
+  # --- Python 系 ---
+  - name: Django
+    category: Framework
+    patterns:
+      - "Set-Cookie: csrftoken"
+    body_patterns:
+      - "django"
+  - name: Flask
+    category: Framework
+    patterns:
+      - "Set-Cookie: session="
+
+  # --- 前端 ---
+  - name: Vue.js
+    category: Frontend
+    body_patterns:
+      - "vue.js"
+      - "vue.min.js"
+      - "vue@"
+  - name: React
+    category: Frontend
+    body_patterns:
+      - "react.js"
+      - "react.min.js"
+      - "react-dom"
+  - name: jQuery
+    category: Frontend
+    body_patterns:
+      - "jquery.js"
+      - "jquery.min.js"
+
+  # --- 服务器 ---
+  - name: Nginx
+    category: Server
+    patterns:
+      - "Server: nginx"
+  - name: IIS
+    category: Server
+    patterns:
+      - "Server: Microsoft-IIS"
+  - name: OpenResty
+    category: Server
+    patterns:
+      - "Server: openresty"
+
+  # --- 认证系统 ---
+  - name: CAS
+    category: SSO
+    path_patterns:
+      - "/cas/"
+      - "/cas/login"
+    body_patterns:
+      - "中央认证"
+      - "统一认证"

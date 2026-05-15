@@ -11,6 +11,7 @@ Usage:
 from __future__ import annotations
 
 import asyncio
+import json
 import sys
 from pathlib import Path
 
@@ -48,7 +49,12 @@ def main(domain: str | None, file: str | None, dry_run: bool,
     if domain:
         seeds.append(domain)
     if file:
-        seeds.extend(line.strip() for line in open(file) if line.strip())
+        try:
+            with open(file) as f:
+                seeds.extend(line.strip() for line in f if line.strip())
+        except FileNotFoundError:
+            click.echo(f"[!] 文件不存在: {file}")
+            sys.exit(1)
 
     if not seeds:
         click.echo("请指定 --domain 或 --file 提供目标")
@@ -70,7 +76,7 @@ def main(domain: str | None, file: str | None, dry_run: bool,
         modules = [m for m, p in MODULE_PHASE.items()
                    if p in (ScanPhase.DISCOVERY, ScanPhase.ANALYSIS, ScanPhase.PASSIVE)]
 
-    scheduler = Scheduler(logger=log)
+    scheduler = Scheduler(logger=log, config=cfg)
     plan = scheduler.build_plan(in_scope, modules=modules, dry_run=dry_run)
 
     click.echo(f"[*] 执行计划: {len(plan.tasks)} 个任务")
@@ -82,12 +88,39 @@ def main(domain: str | None, file: str | None, dry_run: bool,
 
     if dry_run:
         click.echo("[*] dry-run 模式，不执行实际扫描")
+        return
 
-    max_con = cfg["scheduler"]["max_concurrency"]
-    asyncio.run(scheduler.execute(plan, max_concurrency=max_con))
+    max_con = cfg.get("scheduler", {}).get("max_concurrency", 10)
+    assets, targets, findings = asyncio.run(scheduler.execute(plan, max_concurrency=max_con))
+
+    out_dir = Path(out)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    # 保存 findings.json
+    import json as _json
+    (_out / "findings.json").write_text(_json.dumps(findings, ensure_ascii=False, indent=2), encoding="utf-8")
+    click.echo(f"[+] 发现 {len(findings)} 个漏洞，已写入 {_out / 'findings.json'}")
+
+    # 保存 targets.json
+    all_targets = []
+    for seed_targets in targets.values():
+        all_targets.extend(seed_targets)
+    targets_file = out_dir / "targets.json"
+    targets_file.write_text(json.dumps(all_targets, ensure_ascii=False, indent=2))
+    click.echo(f"[*] 保存 {len(all_targets)} 个 targets → {targets_file}")
+
+    # 保存 assets.json
+    all_assets = []
+    for seed_assets in assets.values():
+        all_assets.extend(seed_assets)
+    assets_file = out_dir / "assets.json"
+    assets_file.write_text(json.dumps(all_assets, ensure_ascii=False, indent=2))
+    click.echo(f"[*] 保存 {len(all_assets)} 个 assets → {assets_file}")
 
     click.echo(f"[*] 完成，输出目录: {out}")
-    log.info("scan_session_done", seeds=in_scope, task_count=len(plan.tasks))
+    log.info("scan_session_done", seeds=in_scope, task_count=len(plan.tasks),
+             total_assets=len(all_assets), total_targets=len(all_targets))
+    log.close()
 
 
 if __name__ == "__main__":
