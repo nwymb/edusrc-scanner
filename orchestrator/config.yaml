@@ -48,6 +48,14 @@ apis:
     key: ""                  # 鹰图 API Key
     enabled: false
 
+# --- LLM Agent ---
+# 密钥通过环境变量 DEEPSEEK_API_KEY 提供，请勿在此写入
+llm:
+  enabled: true                    # 全局大模型自愈开关
+  model: "deepseek-chat"
+  max_react_steps: 4               # 限制每轮自愈循环最大步数
+  total_token_budget: 500000       # 单次扫描任务总 Token 熔断阈值
+
 # --- 日志 ---
 logging:
   audit_file: "data/audit.log"

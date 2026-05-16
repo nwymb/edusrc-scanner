@@ -1,9 +1,8 @@
-"""L4 主动验证 — P1 级未授权访问与越权旁路检测 (UnauthScanner)
+"""L4 主动验证 — P1 级未授权访问与越权旁路检测 (UnauthScanner + LLM 自愈)
 
-1. 筛选 API/Admin 类 URL + is_login=False 的资产
-2. GET + POST(空参数) 零凭据探测
-3. 遇 401/403 → 伪造 X-Forwarded-For: 127.0.0.1 重试绕过
-4. 200 OK + JSON/敏感字段 → 判定为未授权漏洞
+1. Phase 1: 常规规则探测 (UnauthScanner + AdvancedBypass)
+2. Phase 2: LLM 网关判定 (config.enabled + token_budget + 卡点检测)
+3. Phase 3: ReAct 自愈循环 + EduSRC 战报生成
 """
 
 from __future__ import annotations
@@ -12,14 +11,33 @@ import asyncio
 import json as _json
 import logging
 from dataclasses import asdict
+from pathlib import Path
 from urllib.parse import urljoin
 
 import aiohttp
+import yaml
 
 from modules import register
 from shared.models import Finding, FindingSource, VulnSeverity
 
 _log = logging.getLogger(__name__)
+
+# ── LLM 控本计数器 ──
+_llm_token_used: int = 0
+
+
+def _load_llm_config() -> dict:
+    cfg_path = Path(__file__).resolve().parent.parent.parent / "orchestrator" / "config.yaml"
+    if cfg_path.exists():
+        with open(cfg_path) as f:
+            return yaml.safe_load(f).get("llm", {})
+    return {}
+
+
+def _is_login_form(body: str) -> bool:
+    """检测响应体是否为登录表单"""
+    bl = body.lower()
+    return ("<form" in bl and "password" in bl) or ("login" in bl and "password" in bl)
 
 # AdvancedBypass — 4 层 Header 组合，遇 403 自动轮换
 _BYPASS_COMBOS: list[dict[str, str]] = [
@@ -261,6 +279,150 @@ class UnauthScanner:
         return sensitive, body, content_type, status
 
 
+# ── 三阶段合流: check_unauth ──
+
+async def check_unauth(target_url: str, session) -> dict:
+    """对单个 URL 执行完整的三阶段未授权检测流水线。
+
+    Returns:
+        {"findings": list[Finding], "react_used": bool, "report_path": str|None}
+    """
+    findings: list[Finding] = []
+    react_used = False
+    report_path: str | None = None
+
+    # ═══ Phase 1: 常规规则探测 (低成本) ═══
+    body = ""
+    status = 0
+    content_type = ""
+
+    # 基础 GET 探测
+    try:
+        resp = await session.get(target_url)
+        status = resp.status
+        content_type = resp.headers.get("Content-Type", "")
+        body = await resp.text()
+        body = body[:32768]
+    except (aiohttp.ClientError, asyncio.TimeoutError) as e:
+        _log.debug("check_unauth_probe_failed url=%s error=%s", target_url, e)
+        return {"findings": [], "react_used": False, "report_path": None}
+
+    # 直接命中 → 记录漏洞，跳过 LLM
+    if _is_sensitive(body, content_type)[0]:
+        findings.append(Finding(
+            url=target_url, vuln_type="unauth", severity=VulnSeverity.HIGH,
+            title=f"未授权访问 (直接命中): {target_url}",
+            evidence=f"HTTP {status} hits={_is_sensitive(body, content_type)[1][:5]}",
+            confidence=0.85, source=FindingSource.L4_ACTIVE,
+            source_module="unauth_check",
+            raw={"method": "GET", "status_code": status, "content_type": content_type},
+        ))
+        return {"findings": findings, "react_used": False, "report_path": None}
+
+    # 403/500 或 200+登录表单 → 卡点，进入 Phase 2
+    is_blocked = status in (403, 500)
+    is_login_page = status == 200 and _is_login_form(body)
+
+    if not is_blocked and not is_login_page:
+        # 无卡点 → 常规 AdvancedBypass 收尾
+        for tier_idx, combo in enumerate(_BYPASS_COMBOS, 1):
+            hit2, b2, ct2, s2 = await _raw_request(session, target_url, "GET", combo)
+            if hit2:
+                findings.append(Finding(
+                    url=target_url, vuln_type="unauth",
+                    severity=VulnSeverity.HIGH,
+                    title=f"未授权访问 (绕过 Tier {tier_idx}): {target_url}",
+                    evidence=f"HTTP {s2} bypass=tier_{tier_idx} hits={_is_sensitive(b2, ct2)[1][:5]}",
+                    confidence=0.75, source=FindingSource.L4_ACTIVE,
+                    source_module="unauth_check",
+                    raw={"bypass_tier": tier_idx, "status_code": s2},
+                ))
+                break
+        return {"findings": findings, "react_used": False, "report_path": None}
+
+    # ═══ Phase 2: LLM 网关判定 ═══
+    global _llm_token_used
+    llm_cfg = _load_llm_config()
+
+    llm_enabled = llm_cfg.get("enabled", False)
+    token_budget = llm_cfg.get("total_token_budget", 500000)
+    max_steps = llm_cfg.get("max_react_steps", 4)
+
+    if not llm_enabled or _llm_token_used >= token_budget:
+        reason = "disabled" if not llm_enabled else "token_budget_exhausted"
+        print(f"[-] LLM 自愈未激活或Token预算耗尽 ({reason}), 跳过智能绕过, 转为常规漏洞记录。")
+        _log.info("llm_fallback target=%s reason=%s", target_url, reason)
+        return {"findings": findings, "react_used": False, "report_path": None}
+
+    # ═══ Phase 3: ReAct 自愈 + 战报收割 ═══
+    print(f"[+] 激活 LLM 自愈大脑 → {target_url} (卡点: {'403/500' if is_blocked else 'login_form'})")
+
+    try:
+        from agent.react_core import run_exploit_loop
+        from agent.report_generator import compile_src_report
+
+        react_result = await run_exploit_loop(
+            target_url=target_url,
+            attack_type="unauth_bypass",
+            max_steps=min(max_steps, 5),
+        )
+
+        react_used = True
+        _llm_token_used += react_result["steps"] * 15000  # 估算每步 ~15K tokens
+
+        if react_result["success"]:
+            findings.append(Finding(
+                url=target_url, vuln_type="unauth",
+                severity=VulnSeverity.HIGH,
+                title=f"LLM 自愈绕过: {target_url}",
+                evidence=react_result["summary"][:500],
+                confidence=0.90, source=FindingSource.L4_ACTIVE,
+                source_module="unauth_check",
+                raw={"react_steps": react_result["steps"], "react_summary": react_result["summary"]},
+            ))
+
+            # 自动生成战报
+            report_md = await compile_src_report(
+                history=react_result["history"],
+                target_url=target_url,
+            )
+            out_dir = Path(__file__).resolve().parent.parent.parent / "data" / "reports"
+            out_dir.mkdir(parents=True, exist_ok=True)
+            report_file = out_dir / f"unauth_{target_url.replace('://','_').replace('/','_')[:60]}.md"
+            report_file.write_text(report_md, encoding="utf-8")
+            report_path = str(report_file)
+            _log.info("llm_report_saved path=%s", report_path)
+
+    except ImportError:
+        _log.warning("agent modules not available, skipping LLM react")
+    except Exception as e:
+        _log.error("react_loop_failed url=%s error=%s", target_url, e)
+
+    return {"findings": findings, "react_used": react_used, "report_path": report_path}
+
+
+async def _raw_request(session, url: str, method: str, headers: dict) -> tuple[bool, str, str, int]:
+    """独立于 UnauthScanner 的低级请求 helper"""
+    try:
+        if method == "POST":
+            resp = await session.post(url, data="", headers=headers)
+        else:
+            resp = await session.get(url, headers=headers)
+    except (aiohttp.ClientError, asyncio.TimeoutError):
+        return False, "", "", 0
+    status = resp.status
+    if status != 200:
+        return False, "", "", status
+    try:
+        body = await resp.text()
+        body = body[:65536]
+    except (aiohttp.ClientError, asyncio.TimeoutError):
+        return False, "", "", status
+    ct = resp.headers.get("Content-Type", "")
+    hit, _ = _is_sensitive(body, ct)
+    return hit, body, ct, status
+
+
 # ── 模块入口 ──
 
 @register("unauth_check")
@@ -269,6 +431,31 @@ async def run(context: dict) -> dict:
     session = context["session"]
     logger = context["logger"]
 
+    all_findings: list[Finding] = []
+
+    # 快速路径: 批量常规扫描 (UnauthScanner)
     scanner = UnauthScanner(session, logger)
-    findings = await scanner.scan(targets)
-    return {"findings": [asdict(f) for f in findings]}
+    fast_findings = await scanner.scan(targets)
+    fast_urls = {f.url for f in fast_findings}
+    all_findings.extend(fast_findings)
+
+    # 智能路径: 对未命中且为高价值目标的 URL 启用 check_unauth 三阶段流水线
+    high_value = [
+        t for t in targets
+        if t.get("url", "") not in fast_urls
+        and any(kw in t.get("url", "").lower() for kw in ("/admin", "/api", "/system", "/manage", "/console", "/login"))
+    ]
+    for target in high_value[:5]:  # 每批最多 5 个走 LLM
+        url = target.get("url", "")
+        if not url:
+            continue
+        result = await check_unauth(url, session)
+        all_findings.extend(result.get("findings", []))
+        if result.get("react_used"):
+            logger.info("llm_react_used url=%s report=%s", url, result.get("report_path"))
+
+    logger.info("unauth_done total=%d fast=%d llm_react=%d",
+                len(all_findings), len(fast_findings),
+                sum(1 for f in all_findings if "LLM 自愈" in f.title))
+
+    return {"findings": [asdict(f) for f in all_findings]}
