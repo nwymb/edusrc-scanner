@@ -3,7 +3,8 @@ __pycache__/
 *.so
 .env
 *.log
-data/*.json
+data/output/
+data/reports/
 .idea/
 .vscode/
 .DS_Store
