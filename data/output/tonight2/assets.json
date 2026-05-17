@@ -1,0 +1,3645 @@
+[
+  {
+    "domain": "www.xhkjzyxy.edu.cn",
+    "ip": "42.247.75.250",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.883037"
+  },
+  {
+    "domain": "manager.xhkjzyxy.edu.cn",
+    "ip": "120.211.98.242",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.883095"
+  },
+  {
+    "domain": "oa.xhkjzyxy.edu.cn",
+    "ip": "120.211.98.242",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.883118"
+  },
+  {
+    "domain": "jwc.xhkjzyxy.edu.cn",
+    "ip": "42.247.75.250",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.883137"
+  },
+  {
+    "domain": "zs.xhkjzyxy.edu.cn",
+    "ip": "120.211.98.242",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.883155"
+  },
+  {
+    "domain": "xsc.xhkjzyxy.edu.cn",
+    "ip": "42.247.75.250",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.883293"
+  },
+  {
+    "domain": "ykt.xhkjzyxy.edu.cn",
+    "ip": "120.211.80.226",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.883317"
+  },
+  {
+    "domain": "mail.hcnu.edu.cn",
+    "ip": "14.17.27.155",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.565510"
+  },
+  {
+    "domain": "smtp.hcnu.edu.cn",
+    "ip": "14.22.3.39",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.565605"
+  },
+  {
+    "domain": "pop.hcnu.edu.cn",
+    "ip": "222.79.113.98",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.565634"
+  },
+  {
+    "domain": "imap.hcnu.edu.cn",
+    "ip": "113.240.72.97",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.565657"
+  },
+  {
+    "domain": "www.hcnu.edu.cn",
+    "ip": "222.218.130.75",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.565678"
+  },
+  {
+    "domain": "vpn.hcnu.edu.cn",
+    "ip": "222.218.130.75",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.565700"
+  },
+  {
+    "domain": "idp.hcnu.edu.cn",
+    "ip": "222.218.130.75",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.565721"
+  },
+  {
+    "domain": "auth.hcnu.edu.cn",
+    "ip": "222.218.130.75",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.565742"
+  },
+  {
+    "domain": "news.hcnu.edu.cn",
+    "ip": "222.218.130.75",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.565762"
+  },
+  {
+    "domain": "m.hcnu.edu.cn",
+    "ip": "222.218.130.75",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.565784"
+  },
+  {
+    "domain": "wx.hcnu.edu.cn",
+    "ip": "222.218.130.75",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.565806"
+  },
+  {
+    "domain": "hr.hcnu.edu.cn",
+    "ip": "222.218.130.75",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.565827"
+  },
+  {
+    "domain": "tv.hcnu.edu.cn",
+    "ip": "222.218.130.75",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.565849"
+  },
+  {
+    "domain": "oa.hcnu.edu.cn",
+    "ip": "222.218.130.75",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.565880"
+  },
+  {
+    "domain": "lib.hcnu.edu.cn",
+    "ip": "222.218.130.75",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.565901"
+  },
+  {
+    "domain": "jw.hcnu.edu.cn",
+    "ip": "222.218.130.75",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.565922"
+  },
+  {
+    "domain": "ebook.hcnu.edu.cn",
+    "ip": "222.218.130.75",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.565942"
+  },
+  {
+    "domain": "tsg.hcnu.edu.cn",
+    "ip": "222.218.130.75",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.565961"
+  },
+  {
+    "domain": "kjc.hcnu.edu.cn",
+    "ip": "222.218.130.75",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.565983"
+  },
+  {
+    "domain": "zs.hcnu.edu.cn",
+    "ip": "222.218.130.75",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.566003"
+  },
+  {
+    "domain": "kj.hcnu.edu.cn",
+    "ip": "222.218.130.75",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.566024"
+  },
+  {
+    "domain": "xg.hcnu.edu.cn",
+    "ip": "222.218.130.75",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.566045"
+  },
+  {
+    "domain": "data.hcnu.edu.cn",
+    "ip": "222.218.130.75",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.566064"
+  },
+  {
+    "domain": "ykt.hcnu.edu.cn",
+    "ip": "222.218.130.75",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.566095"
+  },
+  {
+    "domain": "db.hcnu.edu.cn",
+    "ip": "222.218.130.75",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.566124"
+  },
+  {
+    "domain": "en.hcnu.edu.cn",
+    "ip": "222.218.130.75",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.566155"
+  },
+  {
+    "domain": "gateway.hcnu.edu.cn",
+    "ip": "222.218.130.75",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:07.566176"
+  },
+  {
+    "domain": "www.bdu.edu.cn",
+    "ip": "221.192.237.10",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:53.699109"
+  },
+  {
+    "domain": "mail.bdu.edu.cn",
+    "ip": "14.17.5.207",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:53.699213"
+  },
+  {
+    "domain": "m.bdu.edu.cn",
+    "ip": "192.168.10.105",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:53.699236"
+  },
+  {
+    "domain": "lib.bdu.edu.cn",
+    "ip": "124.243.227.8",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:53.699256"
+  },
+  {
+    "domain": "jwc.bdu.edu.cn",
+    "ip": "221.192.237.10",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:53.699277"
+  },
+  {
+    "domain": "xsc.bdu.edu.cn",
+    "ip": "221.192.237.10",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:53.699295"
+  },
+  {
+    "domain": "oa.bdu.edu.cn",
+    "ip": "221.192.237.25",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:53.699314"
+  },
+  {
+    "domain": "kyc.bdu.edu.cn",
+    "ip": "221.192.237.10",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:53.699334"
+  },
+  {
+    "domain": "nic.bdu.edu.cn",
+    "ip": "221.192.237.10",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:53.699354"
+  },
+  {
+    "domain": "dns.bdu.edu.cn",
+    "ip": "211.81.145.1",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:53.699373"
+  },
+  {
+    "domain": "jwgl.bdu.edu.cn",
+    "ip": "221.192.237.20",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:53.699392"
+  },
+  {
+    "domain": "data.bdu.edu.cn",
+    "ip": "192.168.9.95",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:53.699409"
+  },
+  {
+    "domain": "ks.bdu.edu.cn",
+    "ip": "221.192.237.21",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:53.699427"
+  },
+  {
+    "domain": "xiaoyou.bdu.edu.cn",
+    "ip": "221.192.237.10",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:53.699445"
+  },
+  {
+    "domain": "webvpn.bdu.edu.cn",
+    "ip": null,
+    "port": null,
+    "source": "crtsh_wildcard",
+    "timestamp": "2026-05-17T08:38:12.474297",
+    "org": "C=US, O=Let's Encrypt, CN=R12"
+  },
+  {
+    "domain": "zsxx.bdu.edu.cn",
+    "ip": null,
+    "port": null,
+    "source": "crtsh_wildcard",
+    "timestamp": "2026-05-17T08:38:12.474391",
+    "org": "C=US, O=Let's Encrypt, CN=R13"
+  },
+  {
+    "domain": "bdu.edu.cn",
+    "ip": null,
+    "port": null,
+    "source": "crtsh_wildcard",
+    "timestamp": "2026-05-17T08:38:12.474425",
+    "org": "C=CN, O=\"Beijing Xinchacha Credit Management Co., Ltd.\", CN=Xcc Trust OV SSL CA"
+  },
+  {
+    "domain": "mail.ncist.edu.cn",
+    "ip": "14.17.27.155",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.055854"
+  },
+  {
+    "domain": "www.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.055915"
+  },
+  {
+    "domain": "pop3.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.055938"
+  },
+  {
+    "domain": "pop.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.055958"
+  },
+  {
+    "domain": "smtp.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.055979"
+  },
+  {
+    "domain": "imap.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.055999"
+  },
+  {
+    "domain": "webmail.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056018"
+  },
+  {
+    "domain": "sftp.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056038"
+  },
+  {
+    "domain": "ftp.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056057"
+  },
+  {
+    "domain": "vpn.ncist.edu.cn",
+    "ip": "222.222.118.6",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056076"
+  },
+  {
+    "domain": "ssh.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056095"
+  },
+  {
+    "domain": "svn.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056115"
+  },
+  {
+    "domain": "open.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056134"
+  },
+  {
+    "domain": "admin.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056154"
+  },
+  {
+    "domain": "git.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056173"
+  },
+  {
+    "domain": "dev.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056192"
+  },
+  {
+    "domain": "test.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056210"
+  },
+  {
+    "domain": "api.ncist.edu.cn",
+    "ip": "222.222.118.7",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056230"
+  },
+  {
+    "domain": "manage.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056251"
+  },
+  {
+    "domain": "gitlab.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056270"
+  },
+  {
+    "domain": "stage.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056291"
+  },
+  {
+    "domain": "manager.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056310"
+  },
+  {
+    "domain": "portal.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056329"
+  },
+  {
+    "domain": "login.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056393"
+  },
+  {
+    "domain": "console.ncist.edu.cn",
+    "ip": "222.222.118.5",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056424"
+  },
+  {
+    "domain": "sso.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056495"
+  },
+  {
+    "domain": "cas.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056525"
+  },
+  {
+    "domain": "oauth.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056542"
+  },
+  {
+    "domain": "auth.ncist.edu.cn",
+    "ip": "219.148.158.247",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056556"
+  },
+  {
+    "domain": "news.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056570"
+  },
+  {
+    "domain": "blog.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056585"
+  },
+  {
+    "domain": "support.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056598"
+  },
+  {
+    "domain": "mobile.ncist.edu.cn",
+    "ip": "222.222.118.5",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056612"
+  },
+  {
+    "domain": "wap.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056626"
+  },
+  {
+    "domain": "passport.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056640"
+  },
+  {
+    "domain": "app.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056653"
+  },
+  {
+    "domain": "demo.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056668"
+  },
+  {
+    "domain": "help.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056681"
+  },
+  {
+    "domain": "docs.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056695"
+  },
+  {
+    "domain": "static.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056709"
+  },
+  {
+    "domain": "static1.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056723"
+  },
+  {
+    "domain": "staging.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056738"
+  },
+  {
+    "domain": "dashboard.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056752"
+  },
+  {
+    "domain": "wiki.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056766"
+  },
+  {
+    "domain": "idp.ncist.edu.cn",
+    "ip": "211.81.175.21",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056780"
+  },
+  {
+    "domain": "doc.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056798"
+  },
+  {
+    "domain": "m.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056813"
+  },
+  {
+    "domain": "wechat.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056827"
+  },
+  {
+    "domain": "static2.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056841"
+  },
+  {
+    "domain": "wx.ncist.edu.cn",
+    "ip": "124.238.159.253",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056856"
+  },
+  {
+    "domain": "cdn.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056869"
+  },
+  {
+    "domain": "cdn1.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056881"
+  },
+  {
+    "domain": "cdn2.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056894"
+  },
+  {
+    "domain": "images.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056908"
+  },
+  {
+    "domain": "img.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056921"
+  },
+  {
+    "domain": "img1.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056934"
+  },
+  {
+    "domain": "img2.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056947"
+  },
+  {
+    "domain": "upload.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056960"
+  },
+  {
+    "domain": "download.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056973"
+  },
+  {
+    "domain": "file.ncist.edu.cn",
+    "ip": "222.222.118.5",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056986"
+  },
+  {
+    "domain": "files.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.056999"
+  },
+  {
+    "domain": "video.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057014"
+  },
+  {
+    "domain": "live.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057028"
+  },
+  {
+    "domain": "media.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057042"
+  },
+  {
+    "domain": "tv.ncist.edu.cn",
+    "ip": "219.148.158.243",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057057"
+  },
+  {
+    "domain": "oa.ncist.edu.cn",
+    "ip": "219.148.158.247",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057074"
+  },
+  {
+    "domain": "erp.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057088"
+  },
+  {
+    "domain": "crm.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057101"
+  },
+  {
+    "domain": "srm.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057116"
+  },
+  {
+    "domain": "hr.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057131"
+  },
+  {
+    "domain": "finance.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057146"
+  },
+  {
+    "domain": "job.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057159"
+  },
+  {
+    "domain": "zhaopin.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057174"
+  },
+  {
+    "domain": "career.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057188"
+  },
+  {
+    "domain": "recruit.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057202"
+  },
+  {
+    "domain": "library.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057218"
+  },
+  {
+    "domain": "lib.ncist.edu.cn",
+    "ip": "211.81.174.147",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057239"
+  },
+  {
+    "domain": "book.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057255"
+  },
+  {
+    "domain": "ebook.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057268"
+  },
+  {
+    "domain": "tsg.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057283"
+  },
+  {
+    "domain": "jwc.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057298"
+  },
+  {
+    "domain": "jiaowu.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057313"
+  },
+  {
+    "domain": "graduate.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057337"
+  },
+  {
+    "domain": "jwgl.ncist.edu.cn",
+    "ip": "219.148.158.245",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057352"
+  },
+  {
+    "domain": "yjs.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057367"
+  },
+  {
+    "domain": "grs.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057383"
+  },
+  {
+    "domain": "zs.ncist.edu.cn",
+    "ip": "211.81.175.35",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057397"
+  },
+  {
+    "domain": "pay.ncist.edu.cn",
+    "ip": "219.148.158.247",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057412"
+  },
+  {
+    "domain": "jw.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057427"
+  },
+  {
+    "domain": "zsb.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057452"
+  },
+  {
+    "domain": "zhaosheng.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057467"
+  },
+  {
+    "domain": "xsc.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057480"
+  },
+  {
+    "domain": "xg.ncist.edu.cn",
+    "ip": "219.148.158.247",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057494"
+  },
+  {
+    "domain": "kyc.ncist.edu.cn",
+    "ip": "211.81.175.26",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057509"
+  },
+  {
+    "domain": "keyan.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057523"
+  },
+  {
+    "domain": "kj.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057536"
+  },
+  {
+    "domain": "xgc.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057551"
+  },
+  {
+    "domain": "gs.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057568"
+  },
+  {
+    "domain": "kjc.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057584"
+  },
+  {
+    "domain": "science.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057597"
+  },
+  {
+    "domain": "net.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057611"
+  },
+  {
+    "domain": "network.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057626"
+  },
+  {
+    "domain": "ns.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057653"
+  },
+  {
+    "domain": "dns.ncist.edu.cn",
+    "ip": "211.81.175.5",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057668"
+  },
+  {
+    "domain": "ns1.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057683"
+  },
+  {
+    "domain": "ns2.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057698"
+  },
+  {
+    "domain": "v6.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057723"
+  },
+  {
+    "domain": "ky.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057738"
+  },
+  {
+    "domain": "v4.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057764"
+  },
+  {
+    "domain": "ipv4.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057780"
+  },
+  {
+    "domain": "cms.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057796"
+  },
+  {
+    "domain": "web.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057810"
+  },
+  {
+    "domain": "new.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057826"
+  },
+  {
+    "domain": "wwww.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057842"
+  },
+  {
+    "domain": "bbs.ncist.edu.cn",
+    "ip": "10.1.0.99",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057857"
+  },
+  {
+    "domain": "forum.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057872"
+  },
+  {
+    "domain": "union.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057887"
+  },
+  {
+    "domain": "old.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057901"
+  },
+  {
+    "domain": "www2.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057914"
+  },
+  {
+    "domain": "ykt.ncist.edu.cn",
+    "ip": "219.148.158.243",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057929"
+  },
+  {
+    "domain": "ec.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057943"
+  },
+  {
+    "domain": "meeting.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057959"
+  },
+  {
+    "domain": "zoom.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057972"
+  },
+  {
+    "domain": "jitsi.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.057985"
+  },
+  {
+    "domain": "room.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058012"
+  },
+  {
+    "domain": "tieba.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058025"
+  },
+  {
+    "domain": "db.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058038"
+  },
+  {
+    "domain": "data.ncist.edu.cn",
+    "ip": "211.81.175.8",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058051"
+  },
+  {
+    "domain": "redis.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058064"
+  },
+  {
+    "domain": "nagios.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058079"
+  },
+  {
+    "domain": "nic.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058093"
+  },
+  {
+    "domain": "ecard.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058107"
+  },
+  {
+    "domain": "monitor.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058122"
+  },
+  {
+    "domain": "mysql.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058137"
+  },
+  {
+    "domain": "grafana.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058152"
+  },
+  {
+    "domain": "jenkins.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058167"
+  },
+  {
+    "domain": "ci.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058182"
+  },
+  {
+    "domain": "cd.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058198"
+  },
+  {
+    "domain": "devops.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058211"
+  },
+  {
+    "domain": "k8s.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058224"
+  },
+  {
+    "domain": "kibana.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058240"
+  },
+  {
+    "domain": "zabbix.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058255"
+  },
+  {
+    "domain": "es.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058284"
+  },
+  {
+    "domain": "elastic.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058299"
+  },
+  {
+    "domain": "docker.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058331"
+  },
+  {
+    "domain": "ad.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058344"
+  },
+  {
+    "domain": "ldap.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058357"
+  },
+  {
+    "domain": "dc.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058371"
+  },
+  {
+    "domain": "en.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058384"
+  },
+  {
+    "domain": "jp.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058397"
+  },
+  {
+    "domain": "global.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058411"
+  },
+  {
+    "domain": "intl.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058421"
+  },
+  {
+    "domain": "cet.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058433"
+  },
+  {
+    "domain": "score.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058443"
+  },
+  {
+    "domain": "exam.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058453"
+  },
+  {
+    "domain": "ks.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058463"
+  },
+  {
+    "domain": "kaoshi.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058473"
+  },
+  {
+    "domain": "xiaoyou.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058483"
+  },
+  {
+    "domain": "payment.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058493"
+  },
+  {
+    "domain": "alipay.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058503"
+  },
+  {
+    "domain": "wxpay.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058513"
+  },
+  {
+    "domain": "sms.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058522"
+  },
+  {
+    "domain": "shortmessage.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058533"
+  },
+  {
+    "domain": "backup.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058542"
+  },
+  {
+    "domain": "bak.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058552"
+  },
+  {
+    "domain": "temp.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058561"
+  },
+  {
+    "domain": "tmp.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058571"
+  },
+  {
+    "domain": "tools.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058580"
+  },
+  {
+    "domain": "tool.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058590"
+  },
+  {
+    "domain": "util.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058600"
+  },
+  {
+    "domain": "gateway.ncist.edu.cn",
+    "ip": "219.148.158.247",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058610"
+  },
+  {
+    "domain": "swarm.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058620"
+  },
+  {
+    "domain": "gw.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058629"
+  },
+  {
+    "domain": "relay.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058639"
+  },
+  {
+    "domain": "alumni.ncist.edu.cn",
+    "ip": "219.148.158.241",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:46.058649"
+  },
+  {
+    "domain": "www.sjzc.edu.cn",
+    "ip": "210.31.249.2",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.974860"
+  },
+  {
+    "domain": "smtp.sjzc.edu.cn",
+    "ip": "111.124.200.49",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.974926"
+  },
+  {
+    "domain": "mail.sjzc.edu.cn",
+    "ip": "111.124.200.49",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.974951"
+  },
+  {
+    "domain": "pop.sjzc.edu.cn",
+    "ip": "111.124.200.49",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.974971"
+  },
+  {
+    "domain": "ftp.sjzc.edu.cn",
+    "ip": "192.168.41.104",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.974990"
+  },
+  {
+    "domain": "console.sjzc.edu.cn",
+    "ip": "192.168.52.8",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.975010"
+  },
+  {
+    "domain": "auth.sjzc.edu.cn",
+    "ip": "120.211.173.47",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.975028"
+  },
+  {
+    "domain": "idp.sjzc.edu.cn",
+    "ip": "120.211.173.24",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.975045"
+  },
+  {
+    "domain": "imap.sjzc.edu.cn",
+    "ip": "111.124.200.49",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.975063"
+  },
+  {
+    "domain": "login.sjzc.edu.cn",
+    "ip": "210.31.250.87",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.975082"
+  },
+  {
+    "domain": "cas.sjzc.edu.cn",
+    "ip": "120.211.173.54",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.975101"
+  },
+  {
+    "domain": "portal.sjzc.edu.cn",
+    "ip": "210.31.249.132",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.975120"
+  },
+  {
+    "domain": "oa.sjzc.edu.cn",
+    "ip": "120.211.173.20",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.975138"
+  },
+  {
+    "domain": "lib.sjzc.edu.cn",
+    "ip": "120.211.173.41",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.975156"
+  },
+  {
+    "domain": "jwc.sjzc.edu.cn",
+    "ip": "210.31.249.6",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.975173"
+  },
+  {
+    "domain": "jw.sjzc.edu.cn",
+    "ip": "120.211.173.22",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.975191"
+  },
+  {
+    "domain": "jwgl.sjzc.edu.cn",
+    "ip": "210.31.249.143",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.975209"
+  },
+  {
+    "domain": "yjs.sjzc.edu.cn",
+    "ip": "210.31.249.10",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.975227"
+  },
+  {
+    "domain": "xsc.sjzc.edu.cn",
+    "ip": "210.31.249.10",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.975248"
+  },
+  {
+    "domain": "kyc.sjzc.edu.cn",
+    "ip": "210.31.249.10",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.975267"
+  },
+  {
+    "domain": "ns.sjzc.edu.cn",
+    "ip": "210.31.249.20",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.975285"
+  },
+  {
+    "domain": "old.sjzc.edu.cn",
+    "ip": "120.211.173.41",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.975303"
+  },
+  {
+    "domain": "data.sjzc.edu.cn",
+    "ip": "210.31.249.28",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.975321"
+  },
+  {
+    "domain": "gateway.sjzc.edu.cn",
+    "ip": "120.211.173.47",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:48.975339"
+  },
+  {
+    "domain": "mail.mdjnu.edu.cn",
+    "ip": "218.9.55.204",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:55.957785"
+  },
+  {
+    "domain": "smtp.mdjnu.edu.cn",
+    "ip": "119.147.3.196",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:55.957846"
+  },
+  {
+    "domain": "pop.mdjnu.edu.cn",
+    "ip": "222.79.113.58",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:55.957869"
+  },
+  {
+    "domain": "vpn.mdjnu.edu.cn",
+    "ip": "218.9.55.253",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:55.957891"
+  },
+  {
+    "domain": "www.mdjnu.edu.cn",
+    "ip": "218.9.55.229",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:55.957914"
+  },
+  {
+    "domain": "imap.mdjnu.edu.cn",
+    "ip": "113.240.72.107",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:55.957934"
+  },
+  {
+    "domain": "news.mdjnu.edu.cn",
+    "ip": "218.9.55.229",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:55.957953"
+  },
+  {
+    "domain": "live.mdjnu.edu.cn",
+    "ip": "218.9.55.224",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:55.957971"
+  },
+  {
+    "domain": "hr.mdjnu.edu.cn",
+    "ip": "218.9.55.200",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:55.957991"
+  },
+  {
+    "domain": "oa.mdjnu.edu.cn",
+    "ip": "218.9.55.68",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:55.958009"
+  },
+  {
+    "domain": "graduate.mdjnu.edu.cn",
+    "ip": "218.9.55.227",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:55.958030"
+  },
+  {
+    "domain": "yjs.mdjnu.edu.cn",
+    "ip": "218.9.55.229",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:55.958049"
+  },
+  {
+    "domain": "zs.mdjnu.edu.cn",
+    "ip": "218.9.55.229",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:55.958068"
+  },
+  {
+    "domain": "jw.mdjnu.edu.cn",
+    "ip": "218.9.55.205",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:55.958087"
+  },
+  {
+    "domain": "jwc.mdjnu.edu.cn",
+    "ip": "218.9.55.229",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:55.958105"
+  },
+  {
+    "domain": "kyc.mdjnu.edu.cn",
+    "ip": "218.9.55.229",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:55.958123"
+  },
+  {
+    "domain": "lib.mdjnu.edu.cn",
+    "ip": "218.9.55.229",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:55.958142"
+  },
+  {
+    "domain": "nic.mdjnu.edu.cn",
+    "ip": "218.9.55.205",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:55.958162"
+  },
+  {
+    "domain": "www2.mdjnu.edu.cn",
+    "ip": "111.40.76.101",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:55.958183"
+  },
+  {
+    "domain": "ecard.mdjnu.edu.cn",
+    "ip": "10.10.110.10",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:55.958203"
+  },
+  {
+    "domain": "data.mdjnu.edu.cn",
+    "ip": "10.10.10.31",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:55.958226"
+  },
+  {
+    "domain": "www.gxtcmu.edu.cn",
+    "ip": "210.36.99.200",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:16.965657"
+  },
+  {
+    "domain": "imap.gxtcmu.edu.cn",
+    "ip": "210.36.97.8",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:16.965724"
+  },
+  {
+    "domain": "mail.gxtcmu.edu.cn",
+    "ip": "210.36.97.8",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:16.965749"
+  },
+  {
+    "domain": "smtp.gxtcmu.edu.cn",
+    "ip": "210.36.97.8",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:16.965771"
+  },
+  {
+    "domain": "pop.gxtcmu.edu.cn",
+    "ip": "210.36.97.8",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:16.965794"
+  },
+  {
+    "domain": "vpn.gxtcmu.edu.cn",
+    "ip": "210.36.98.201",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:16.965815"
+  },
+  {
+    "domain": "ftp.gxtcmu.edu.cn",
+    "ip": "210.36.97.129",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:16.965836"
+  },
+  {
+    "domain": "portal.gxtcmu.edu.cn",
+    "ip": "210.36.97.50",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:16.965856"
+  },
+  {
+    "domain": "idp.gxtcmu.edu.cn",
+    "ip": "210.36.97.99",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:16.965876"
+  },
+  {
+    "domain": "cas.gxtcmu.edu.cn",
+    "ip": "210.36.97.56",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:16.965895"
+  },
+  {
+    "domain": "file.gxtcmu.edu.cn",
+    "ip": "210.36.97.129",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:16.965913"
+  },
+  {
+    "domain": "live.gxtcmu.edu.cn",
+    "ip": "210.36.99.65",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:16.965932"
+  },
+  {
+    "domain": "oa.gxtcmu.edu.cn",
+    "ip": "210.36.99.97",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:16.965951"
+  },
+  {
+    "domain": "media.gxtcmu.edu.cn",
+    "ip": "210.36.99.200",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:16.965971"
+  },
+  {
+    "domain": "graduate.gxtcmu.edu.cn",
+    "ip": "210.36.99.200",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:16.965990"
+  },
+  {
+    "domain": "gs.gxtcmu.edu.cn",
+    "ip": "210.36.99.200",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:16.966010"
+  },
+  {
+    "domain": "jitsi.gxtcmu.edu.cn",
+    "ip": "210.36.99.200",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:16.966031"
+  },
+  {
+    "domain": "proxy.gxtcmu.edu.cn",
+    "ip": "210.36.99.200",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:16.966053"
+  },
+  {
+    "domain": "gateway.gxtcmu.edu.cn",
+    "ip": "210.36.97.202",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:16.966077"
+  },
+  {
+    "domain": "www.fudan.edu.cn",
+    "ip": "175.186.248.54",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937185"
+  },
+  {
+    "domain": "mail.fudan.edu.cn",
+    "ip": "61.129.42.16",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937236"
+  },
+  {
+    "domain": "webmail.fudan.edu.cn",
+    "ip": "61.129.42.10",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937258"
+  },
+  {
+    "domain": "vpn.fudan.edu.cn",
+    "ip": "175.186.248.36",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937278"
+  },
+  {
+    "domain": "news.fudan.edu.cn",
+    "ip": "175.186.248.54",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937298"
+  },
+  {
+    "domain": "auth.fudan.edu.cn",
+    "ip": "175.186.248.2",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937316"
+  },
+  {
+    "domain": "cas.fudan.edu.cn",
+    "ip": "175.186.248.53",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937334"
+  },
+  {
+    "domain": "idp.fudan.edu.cn",
+    "ip": "202.120.231.10",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937352"
+  },
+  {
+    "domain": "app.fudan.edu.cn",
+    "ip": "61.129.42.121",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937371"
+  },
+  {
+    "domain": "mobile.fudan.edu.cn",
+    "ip": "61.129.42.120",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937390"
+  },
+  {
+    "domain": "live.fudan.edu.cn",
+    "ip": "202.120.224.119",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937409"
+  },
+  {
+    "domain": "hr.fudan.edu.cn",
+    "ip": "175.186.248.53",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937427"
+  },
+  {
+    "domain": "media.fudan.edu.cn",
+    "ip": "10.108.70.88",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937445"
+  },
+  {
+    "domain": "career.fudan.edu.cn",
+    "ip": "175.186.248.18",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937463"
+  },
+  {
+    "domain": "library.fudan.edu.cn",
+    "ip": "175.186.248.53",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937550"
+  },
+  {
+    "domain": "jwc.fudan.edu.cn",
+    "ip": "175.186.248.53",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937590"
+  },
+  {
+    "domain": "gs.fudan.edu.cn",
+    "ip": "175.186.248.53",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937617"
+  },
+  {
+    "domain": "ns1.fudan.edu.cn",
+    "ip": "202.120.224.34",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937640"
+  },
+  {
+    "domain": "ns2.fudan.edu.cn",
+    "ip": "202.120.224.35",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937663"
+  },
+  {
+    "domain": "kjc.fudan.edu.cn",
+    "ip": "10.107.0.20",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937683"
+  },
+  {
+    "domain": "ipv6.fudan.edu.cn",
+    "ip": "175.186.248.18",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937701"
+  },
+  {
+    "domain": "bbs.fudan.edu.cn",
+    "ip": "202.120.225.9",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937719"
+  },
+  {
+    "domain": "ecard.fudan.edu.cn",
+    "ip": "175.186.248.18",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937737"
+  },
+  {
+    "domain": "meeting.fudan.edu.cn",
+    "ip": "175.186.248.18",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937754"
+  },
+  {
+    "domain": "ec.fudan.edu.cn",
+    "ip": "202.120.224.114",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937772"
+  },
+  {
+    "domain": "dc.fudan.edu.cn",
+    "ip": "175.186.248.2",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937790"
+  },
+  {
+    "domain": "alumni.fudan.edu.cn",
+    "ip": "175.186.248.18",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937812"
+  },
+  {
+    "domain": "payment.fudan.edu.cn",
+    "ip": "202.120.224.23",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937830"
+  },
+  {
+    "domain": "proxy.fudan.edu.cn",
+    "ip": "202.120.224.104",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937848"
+  },
+  {
+    "domain": "gateway.fudan.edu.cn",
+    "ip": "202.120.224.134",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:20.937865"
+  },
+  {
+    "domain": "imap.uestc.edu.cn",
+    "ip": "202.112.14.169",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:28.817567"
+  },
+  {
+    "domain": "www.uestc.edu.cn",
+    "ip": "222.197.166.2",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:28.817627"
+  },
+  {
+    "domain": "smtp.uestc.edu.cn",
+    "ip": "202.112.14.169",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:28.817650"
+  },
+  {
+    "domain": "mail.uestc.edu.cn",
+    "ip": "202.112.14.169",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:28.817669"
+  },
+  {
+    "domain": "vpn.uestc.edu.cn",
+    "ip": "222.197.166.2",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:28.817689"
+  },
+  {
+    "domain": "pop.uestc.edu.cn",
+    "ip": "202.112.14.169",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:28.817707"
+  },
+  {
+    "domain": "portal.uestc.edu.cn",
+    "ip": "222.197.166.30",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:28.817726"
+  },
+  {
+    "domain": "news.uestc.edu.cn",
+    "ip": "222.197.166.2",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:28.817744"
+  },
+  {
+    "domain": "mobile.uestc.edu.cn",
+    "ip": "222.197.166.2",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:28.817763"
+  },
+  {
+    "domain": "wx.uestc.edu.cn",
+    "ip": "222.197.166.2",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:28.817781"
+  },
+  {
+    "domain": "live.uestc.edu.cn",
+    "ip": "222.197.166.2",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:28.817801"
+  },
+  {
+    "domain": "oa.uestc.edu.cn",
+    "ip": "222.197.166.2",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:28.817818"
+  },
+  {
+    "domain": "lib.uestc.edu.cn",
+    "ip": "222.197.166.2",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:28.817836"
+  },
+  {
+    "domain": "zs.uestc.edu.cn",
+    "ip": "222.197.166.2",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:28.817854"
+  },
+  {
+    "domain": "dns.uestc.edu.cn",
+    "ip": "202.112.14.151",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:28.817873"
+  },
+  {
+    "domain": "old.uestc.edu.cn",
+    "ip": "202.115.22.202",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:28.817892"
+  },
+  {
+    "domain": "bbs.uestc.edu.cn",
+    "ip": "222.197.166.2",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:28.817909"
+  },
+  {
+    "domain": "ecard.uestc.edu.cn",
+    "ip": "222.197.166.2",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:28.817928"
+  },
+  {
+    "domain": "en.uestc.edu.cn",
+    "ip": "222.197.166.2",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:28.817949"
+  },
+  {
+    "domain": "alumni.uestc.edu.cn",
+    "ip": "222.197.166.2",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:28.817967"
+  },
+  {
+    "domain": "gateway.uestc.edu.cn",
+    "ip": "222.197.164.182",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:28.817985"
+  },
+  {
+    "domain": "www.scpcfe.cn",
+    "ip": "222.209.200.137",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.479806"
+  },
+  {
+    "domain": "mail.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.479864"
+  },
+  {
+    "domain": "imap.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.479886"
+  },
+  {
+    "domain": "webmail.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.479906"
+  },
+  {
+    "domain": "sftp.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.479927"
+  },
+  {
+    "domain": "pop3.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.479945"
+  },
+  {
+    "domain": "ftp.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.479964"
+  },
+  {
+    "domain": "pop.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.479983"
+  },
+  {
+    "domain": "smtp.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480001"
+  },
+  {
+    "domain": "git.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480019"
+  },
+  {
+    "domain": "ssh.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480037"
+  },
+  {
+    "domain": "api.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480055"
+  },
+  {
+    "domain": "open.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480074"
+  },
+  {
+    "domain": "vpn.scpcfe.cn",
+    "ip": "222.209.200.192",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480093"
+  },
+  {
+    "domain": "svn.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480111"
+  },
+  {
+    "domain": "gitlab.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480129"
+  },
+  {
+    "domain": "dev.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480148"
+  },
+  {
+    "domain": "demo.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480166"
+  },
+  {
+    "domain": "test.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480186"
+  },
+  {
+    "domain": "manager.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480204"
+  },
+  {
+    "domain": "stage.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480222"
+  },
+  {
+    "domain": "staging.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480241"
+  },
+  {
+    "domain": "portal.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480258"
+  },
+  {
+    "domain": "manage.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480275"
+  },
+  {
+    "domain": "admin.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480397"
+  },
+  {
+    "domain": "dashboard.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480429"
+  },
+  {
+    "domain": "console.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480451"
+  },
+  {
+    "domain": "sso.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480472"
+  },
+  {
+    "domain": "oauth.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480491"
+  },
+  {
+    "domain": "login.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480510"
+  },
+  {
+    "domain": "auth.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480528"
+  },
+  {
+    "domain": "blog.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480546"
+  },
+  {
+    "domain": "news.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480565"
+  },
+  {
+    "domain": "idp.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480583"
+  },
+  {
+    "domain": "cas.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480601"
+  },
+  {
+    "domain": "help.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480618"
+  },
+  {
+    "domain": "passport.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480637"
+  },
+  {
+    "domain": "wiki.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480656"
+  },
+  {
+    "domain": "doc.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480675"
+  },
+  {
+    "domain": "docs.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480698"
+  },
+  {
+    "domain": "support.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480717"
+  },
+  {
+    "domain": "app.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480736"
+  },
+  {
+    "domain": "wap.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480754"
+  },
+  {
+    "domain": "mobile.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480773"
+  },
+  {
+    "domain": "m.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480791"
+  },
+  {
+    "domain": "wechat.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480810"
+  },
+  {
+    "domain": "wx.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480830"
+  },
+  {
+    "domain": "static1.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480849"
+  },
+  {
+    "domain": "static.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480868"
+  },
+  {
+    "domain": "static2.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480887"
+  },
+  {
+    "domain": "cdn.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480905"
+  },
+  {
+    "domain": "cdn2.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480924"
+  },
+  {
+    "domain": "cdn1.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480942"
+  },
+  {
+    "domain": "images.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480964"
+  },
+  {
+    "domain": "img.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.480982"
+  },
+  {
+    "domain": "img1.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481012"
+  },
+  {
+    "domain": "upload.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481031"
+  },
+  {
+    "domain": "img2.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481049"
+  },
+  {
+    "domain": "files.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481068"
+  },
+  {
+    "domain": "download.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481086"
+  },
+  {
+    "domain": "file.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481104"
+  },
+  {
+    "domain": "video.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481122"
+  },
+  {
+    "domain": "live.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481140"
+  },
+  {
+    "domain": "media.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481175"
+  },
+  {
+    "domain": "vod.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481193"
+  },
+  {
+    "domain": "oa.scpcfe.cn",
+    "ip": "222.209.200.43",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481215"
+  },
+  {
+    "domain": "erp.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481233"
+  },
+  {
+    "domain": "crm.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481252"
+  },
+  {
+    "domain": "tv.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481272"
+  },
+  {
+    "domain": "hr.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481293"
+  },
+  {
+    "domain": "srm.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481313"
+  },
+  {
+    "domain": "finance.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481332"
+  },
+  {
+    "domain": "pay.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481353"
+  },
+  {
+    "domain": "job.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481376"
+  },
+  {
+    "domain": "zhaopin.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481397"
+  },
+  {
+    "domain": "career.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481428"
+  },
+  {
+    "domain": "recruit.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481454"
+  },
+  {
+    "domain": "lib.scpcfe.cn",
+    "ip": "222.209.200.43",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481477"
+  },
+  {
+    "domain": "book.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481501"
+  },
+  {
+    "domain": "tsg.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481522"
+  },
+  {
+    "domain": "library.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481543"
+  },
+  {
+    "domain": "ebook.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481571"
+  },
+  {
+    "domain": "jw.scpcfe.cn",
+    "ip": "222.209.200.43",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481609"
+  },
+  {
+    "domain": "jwc.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481648"
+  },
+  {
+    "domain": "jiaowu.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481676"
+  },
+  {
+    "domain": "jwgl.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481693"
+  },
+  {
+    "domain": "graduate.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481710"
+  },
+  {
+    "domain": "yjs.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481729"
+  },
+  {
+    "domain": "gs.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481748"
+  },
+  {
+    "domain": "grs.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481767"
+  },
+  {
+    "domain": "zs.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481785"
+  },
+  {
+    "domain": "zsb.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481803"
+  },
+  {
+    "domain": "zhaosheng.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481820"
+  },
+  {
+    "domain": "xsc.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481840"
+  },
+  {
+    "domain": "ky.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481859"
+  },
+  {
+    "domain": "xg.scpcfe.cn",
+    "ip": "222.209.200.43",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481877"
+  },
+  {
+    "domain": "xgc.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481897"
+  },
+  {
+    "domain": "keyan.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481915"
+  },
+  {
+    "domain": "kyc.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481935"
+  },
+  {
+    "domain": "kj.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481952"
+  },
+  {
+    "domain": "science.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481971"
+  },
+  {
+    "domain": "network.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.481990"
+  },
+  {
+    "domain": "nic.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482008"
+  },
+  {
+    "domain": "dns.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482025"
+  },
+  {
+    "domain": "ns.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482042"
+  },
+  {
+    "domain": "ns1.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482060"
+  },
+  {
+    "domain": "ns2.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482079"
+  },
+  {
+    "domain": "v6.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482097"
+  },
+  {
+    "domain": "ipv6.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482116"
+  },
+  {
+    "domain": "ipv4.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482150"
+  },
+  {
+    "domain": "v4.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482173"
+  },
+  {
+    "domain": "cms.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482194"
+  },
+  {
+    "domain": "old.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482212"
+  },
+  {
+    "domain": "web.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482231"
+  },
+  {
+    "domain": "new.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482248"
+  },
+  {
+    "domain": "wwww.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482268"
+  },
+  {
+    "domain": "www2.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482287"
+  },
+  {
+    "domain": "bbs.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482307"
+  },
+  {
+    "domain": "tieba.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482325"
+  },
+  {
+    "domain": "forum.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482346"
+  },
+  {
+    "domain": "union.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482375"
+  },
+  {
+    "domain": "ecard.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482396"
+  },
+  {
+    "domain": "ykt.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482415"
+  },
+  {
+    "domain": "card.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482445"
+  },
+  {
+    "domain": "ec.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482462"
+  },
+  {
+    "domain": "meeting.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482480"
+  },
+  {
+    "domain": "data.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482497"
+  },
+  {
+    "domain": "room.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482515"
+  },
+  {
+    "domain": "jitsi.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482526"
+  },
+  {
+    "domain": "zoom.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482539"
+  },
+  {
+    "domain": "db.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482549"
+  },
+  {
+    "domain": "redis.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482559"
+  },
+  {
+    "domain": "mysql.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482571"
+  },
+  {
+    "domain": "monitor.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482583"
+  },
+  {
+    "domain": "nagios.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482595"
+  },
+  {
+    "domain": "grafana.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482607"
+  },
+  {
+    "domain": "zabbix.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482620"
+  },
+  {
+    "domain": "jenkins.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482633"
+  },
+  {
+    "domain": "cd.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482644"
+  },
+  {
+    "domain": "ci.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482654"
+  },
+  {
+    "domain": "k8s.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482664"
+  },
+  {
+    "domain": "devops.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482673"
+  },
+  {
+    "domain": "kjc.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482685"
+  },
+  {
+    "domain": "kibana.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482699"
+  },
+  {
+    "domain": "es.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482711"
+  },
+  {
+    "domain": "docker.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482722"
+  },
+  {
+    "domain": "elastic.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482732"
+  },
+  {
+    "domain": "swarm.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482742"
+  },
+  {
+    "domain": "net.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482754"
+  },
+  {
+    "domain": "ldap.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482765"
+  },
+  {
+    "domain": "ad.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482781"
+  },
+  {
+    "domain": "jp.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482791"
+  },
+  {
+    "domain": "dc.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482802"
+  },
+  {
+    "domain": "en.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482815"
+  },
+  {
+    "domain": "global.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482827"
+  },
+  {
+    "domain": "intl.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482836"
+  },
+  {
+    "domain": "score.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482846"
+  },
+  {
+    "domain": "exam.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482857"
+  },
+  {
+    "domain": "cet.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482868"
+  },
+  {
+    "domain": "kaoshi.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482879"
+  },
+  {
+    "domain": "ks.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482890"
+  },
+  {
+    "domain": "alumni.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482901"
+  },
+  {
+    "domain": "alipay.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482912"
+  },
+  {
+    "domain": "payment.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482923"
+  },
+  {
+    "domain": "xiaoyou.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482934"
+  },
+  {
+    "domain": "shortmessage.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482944"
+  },
+  {
+    "domain": "wxpay.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482955"
+  },
+  {
+    "domain": "sms.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482966"
+  },
+  {
+    "domain": "backup.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482976"
+  },
+  {
+    "domain": "bak.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482987"
+  },
+  {
+    "domain": "temp.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.482999"
+  },
+  {
+    "domain": "tools.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.483011"
+  },
+  {
+    "domain": "tmp.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.483021"
+  },
+  {
+    "domain": "tool.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.483034"
+  },
+  {
+    "domain": "util.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.483045"
+  },
+  {
+    "domain": "proxy.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.483055"
+  },
+  {
+    "domain": "gateway.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.483065"
+  },
+  {
+    "domain": "gw.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.483075"
+  },
+  {
+    "domain": "relay.scpcfe.cn",
+    "ip": "222.209.200.193",
+    "port": null,
+    "source": "dns_brute",
+    "timestamp": "2026-05-17T08:38:49.483085"
+  }
+]

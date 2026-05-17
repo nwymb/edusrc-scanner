@@ -324,21 +324,34 @@ async def check_unauth(target_url: str, session) -> dict:
     is_login_page = status == 200 and _is_login_form(body)
 
     if not is_blocked and not is_login_page:
-        # 无卡点 → 常规 AdvancedBypass 收尾
-        for tier_idx, combo in enumerate(_BYPASS_COMBOS, 1):
-            hit2, b2, ct2, s2 = await _raw_request(session, target_url, "GET", combo)
-            if hit2:
-                findings.append(Finding(
-                    url=target_url, vuln_type="unauth",
-                    severity=VulnSeverity.HIGH,
-                    title=f"未授权访问 (绕过 Tier {tier_idx}): {target_url}",
-                    evidence=f"HTTP {s2} bypass=tier_{tier_idx} hits={_is_sensitive(b2, ct2)[1][:5]}",
-                    confidence=0.75, source=FindingSource.L4_ACTIVE,
-                    source_module="unauth_check",
-                    raw={"bypass_tier": tier_idx, "status_code": s2},
-                ))
+        # 无直接卡点 → 尝试探测管理子路径
+        found_block = False
+        for admin_path in ("/admin", "/admin/login", "/manage", "/api", "/system", "/console"):
+            admin_url = urljoin(target_url.rstrip("/") + "/", admin_path.lstrip("/"))
+            h2, b2, ct2, s2 = await _raw_request(session, admin_url, "GET", {})
+            if s2 in (403, 401, 500) or (s2 == 200 and _is_login_form(b2)):
+                target_url = admin_url
+                body, status, content_type = b2, s2, ct2
+                is_blocked = status in (403, 500)
+                is_login_page = status == 200 and _is_login_form(body)
+                found_block = True
                 break
-        return {"findings": findings, "react_used": False, "report_path": None}
+        if not found_block:
+            # 确实没卡点 → AdvancedBypass 收尾
+            for tier_idx, combo in enumerate(_BYPASS_COMBOS, 1):
+                hit2, b2, ct2, s2 = await _raw_request(session, target_url, "GET", combo)
+                if hit2:
+                    findings.append(Finding(
+                        url=target_url, vuln_type="unauth",
+                        severity=VulnSeverity.HIGH,
+                        title=f"未授权访问 (绕过 Tier {tier_idx}): {target_url}",
+                        evidence=f"HTTP {s2} bypass=tier_{tier_idx}",
+                        confidence=0.75, source=FindingSource.L4_ACTIVE,
+                        source_module="unauth_check",
+                        raw={"bypass_tier": tier_idx, "status_code": s2},
+                    ))
+                    break
+            return {"findings": findings, "react_used": False, "report_path": None}
 
     # ═══ Phase 2: LLM 网关判定 ═══
     global _llm_token_used
@@ -430,32 +443,55 @@ async def run(context: dict) -> dict:
     targets: list[dict] = context.get("targets", [])
     session = context["session"]
     logger = context["logger"]
-
     all_findings: list[Finding] = []
 
-    # 快速路径: 批量常规扫描 (UnauthScanner)
+    # 快速路径: UnauthScanner 批量常规扫描
     scanner = UnauthScanner(session, logger)
     fast_findings = await scanner.scan(targets)
     fast_urls = {f.url for f in fast_findings}
     all_findings.extend(fast_findings)
 
-    # 智能路径: 对未命中且为高价值目标的 URL 启用 check_unauth 三阶段流水线
+    # 智能路径: autonomous_pentest 自主渗透 (LLM 主驾驶)
+    admin_kw = ("manager", "admin", "oa", "idp", "cas", "sso", "jwgl",
+                "auth", "portal", "gateway", "console", "lib", "mail", "login")
     high_value = [
         t for t in targets
         if t.get("url", "") not in fast_urls
-        and any(kw in t.get("url", "").lower() for kw in ("/admin", "/api", "/system", "/manage", "/console", "/login"))
+        and any(kw in t.get("url", "").lower() for kw in admin_kw)
     ]
-    for target in high_value[:5]:  # 每批最多 5 个走 LLM
+    for target in high_value[:5]:
         url = target.get("url", "")
         if not url:
             continue
-        result = await check_unauth(url, session)
-        all_findings.extend(result.get("findings", []))
-        if result.get("react_used"):
-            logger.info("llm_react_used url=%s report=%s", url, result.get("report_path"))
+        logger.info("pentest_agent_start url=%s", url)
+        try:
+            from agent.pentest_agent import autonomous_pentest
+            from agent.report_generator import compile_src_report
 
-    logger.info("unauth_done total=%d fast=%d llm_react=%d",
-                len(all_findings), len(fast_findings),
-                sum(1 for f in all_findings if "LLM 自愈" in f.title))
+            result = await autonomous_pentest(target_url=url, max_steps=8)
 
+            if result["success"]:
+                all_findings.append(Finding(
+                    url=url, vuln_type="unauth", severity=VulnSeverity.HIGH,
+                    title=f"Agent自主利用: {url}",
+                    evidence=result["summary"][:500], confidence=0.90,
+                    source=FindingSource.L4_ACTIVE, source_module="unauth_check",
+                    raw={"status": result["status"], "steps": result["steps"]},
+                ))
+                report_md = await compile_src_report(
+                    history=result["history"], target_url=url)
+                out_dir = Path(__file__).resolve().parent.parent.parent / "data" / "reports"
+                out_dir.mkdir(parents=True, exist_ok=True)
+                (out_dir / f"pentest_{url.replace('://','_').replace('/','_')[:60]}.md").write_text(
+                    report_md, encoding="utf-8")
+                logger.info("pentest_report_saved url=%s", url)
+
+            logger.info("pentest_done url=%s success=%s steps=%d",
+                        url, result["success"], result["steps"])
+        except ImportError:
+            _log.warning("agent modules unavailable, skip pentest")
+        except Exception as e:
+            _log.error("pentest_crashed url=%s error=%s", url, e)
+
+    logger.info("unauth_done total=%d", len(all_findings))
     return {"findings": [asdict(f) for f in all_findings]}

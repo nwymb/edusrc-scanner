@@ -28,6 +28,7 @@ scope:
     - .edu
     - .ac.cn
     - .gov.cn               # 人社部等
+    - .cn                   # 职业学院等非 edu 域名
   allowed_keywords:         # 机构关键字（ICP 备案反查时）
     - "大学"
     - "学院"
@@ -53,10 +54,16 @@ apis:
 llm:
   enabled: true                    # 全局大模型自愈开关
   model: "deepseek-chat"
-  max_react_steps: 4               # 限制每轮自愈循环最大步数
-  total_token_budget: 500000       # 单次扫描任务总 Token 熔断阈值
+  max_react_steps: 20              # 限制每轮自愈循环最大步数
+  total_token_budget: 5000000      # 单次扫描任务总 Token 熔断阈值 (~¥10 DeepSeek-V3)
 
 # --- 日志 ---
 logging:
   audit_file: "data/audit.log"
   level: "INFO"
+
+# --- Webhook 告警 ---
+webhook:
+  enabled: true
+  platform: "dingtalk"
+  url: "https://oapi.dingtalk.com/robot/send?access_token=68819838f393d0d1fa32a35cdd23bea5f2ffa32e3ad98fe8f61895258dd5a157"

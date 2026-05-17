@@ -71,6 +71,10 @@ def main(domain: str | None, file: str | None, dry_run: bool,
 
     click.echo(f"[*] 范围内目标: {len(in_scope)} 个")
 
+    import asyncio as _asyncio
+    from agent.notifier import send_alert
+    _asyncio.run(send_alert(f"扫描启动 - {len(in_scope)} 个目标: {', '.join(in_scope)}", "INFO"))
+
     modules: list[str] | None = None
     if l3_only:
         modules = [m for m, p in MODULE_PHASE.items()
@@ -91,14 +95,40 @@ def main(domain: str | None, file: str | None, dry_run: bool,
         return
 
     max_con = cfg.get("scheduler", {}).get("max_concurrency", 10)
-    assets, targets, findings = asyncio.run(scheduler.execute(plan, max_concurrency=max_con))
+    findings = []
+    try:
+        assets, targets, findings = asyncio.run(scheduler.execute(plan, max_concurrency=max_con))
+    except (KeyboardInterrupt, SystemExit):
+        _asyncio.run(send_alert("扫描被手动中断 (Ctrl+C/tmux kill)", "STOP"))
+        log.close()
+        return
+    except Exception as e:
+        _asyncio.run(send_alert(f"扫描崩溃: {type(e).__name__}: {e}", "ERROR"))
+        log.close()
+        raise
+    finally:
+        out_dir = Path(out)
+        out_dir.mkdir(parents=True, exist_ok=True)
 
-    out_dir = Path(out)
-    out_dir.mkdir(parents=True, exist_ok=True)
+        # 即使中断也保存已有 findings
+        if findings:
+            (out_dir / "findings.json").write_text(json.dumps(findings, ensure_ascii=False, indent=2), encoding="utf-8")
 
     # 保存 findings.json
-    (out_dir / "findings.json").write_text(json.dumps(findings, ensure_ascii=False, indent=2), encoding="utf-8")
     click.echo(f"[+] 发现 {len(findings)} 个漏洞，已写入 {out_dir / 'findings.json'}")
+
+    # 漏洞告警
+    if findings:
+        sev_counts = {}
+        for f in findings:
+            s = f.get("severity", "info")
+            if hasattr(s, "value"):
+                s = s.value
+            sev_counts[s] = sev_counts.get(s, 0) + 1
+        _asyncio.run(send_alert(
+            f"发现 {len(findings)} 个漏洞 {sev_counts}", "VULN"
+        ))
+    _asyncio.run(send_alert(f"扫描完成 - {len(in_scope)} 个目标, {len(findings)} 个漏洞", "DONE"))
 
     # 保存 targets.json
     all_targets = []
