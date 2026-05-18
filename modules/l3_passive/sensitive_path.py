@@ -32,7 +32,7 @@ _SEVERITY_MAP = {
     "high": VulnSeverity.HIGH,
 }
 
-_HIT_STATUS = {200, 201, 202, 204, 301, 302, 307, 403}
+_HIT_STATUS = {200, 204, 301, 302, 307}  # 403=WAF拦截，不算命中
 
 
 async def _probe_url(base_url: str, entry: dict, session) -> Finding | None:
@@ -57,13 +57,23 @@ async def _probe_url(base_url: str, entry: dict, session) -> Finding | None:
     except ValueError:
         cl = 0
 
-    if status == 200 and cl != 0:
+    # 200 必须拿到 body 内容才能确认，防止 catch-all 路由误报
+    if status == 200:
+        if cl == 0:
+            # Content-Length 为 0 大概率是空洞响应，补一发 GET 最终确认
+            pass
         try:
             r = await session.get(target_url)
             body = await r.text()
             body_snippet = body[:512]
         except (aiohttp.ClientError, asyncio.TimeoutError) as e:
             _log.debug("sensitive_get_failed target=%s error=%s", target_url, e)
+        # GET 无 body → 跳过（catch-all 路由）
+        if not body_snippet.strip():
+            return None
+        # body 是 HTML 页面但无敏感内容特征 → catch-all 误报
+        if _is_catchall_html(body_snippet, entry):
+            return None
 
     evidence = f"HTTP {status}"
     if body_snippet:
@@ -86,6 +96,57 @@ async def _probe_url(base_url: str, entry: dict, session) -> Finding | None:
             "body_preview": body_snippet[:200],
         },
     )
+
+
+# HTML 白名单: 这些路径本身就应该返回 HTML 页面（但必须验证指纹）
+_HTML_WHITELIST = {"/swagger-ui.html", "/swagger-resources", "/doc.html",
+                   "/druid/index.html", "/api-docs", "/v2/api-docs", "/v3/api-docs"}
+
+# 精准指纹: 白名单路径必须在 body 中包含至少一个特征关键词才算真命中
+_VULN_FINGERPRINTS: dict[str, list[str]] = {
+    "/swagger-ui.html":    ["swagger-ui", "swagger"],
+    "/swagger-resources":  ["swagger"],
+    "/doc.html":           ["knife4j", "swagger", "接口文档"],
+    "/druid/index.html":   ["druid stat", "druid", "datasource", "sql stat",
+                            "active thread"],
+    "/api-docs":           ["openapi", "swagger", "paths", "definitions",
+                            "info", "components"],
+    "/v2/api-docs":        ["swagger", "paths", "definitions"],
+    "/v3/api-docs":        ["openapi", "paths", "components"],
+}
+
+
+def _is_catchall_html(body: str, entry: dict) -> bool:
+    """判断响应是否为 catch-all 路由 / SPA 幽灵 200 的 HTML 页面。
+
+    真实敏感文件 (.env, backup.sql 等) 永远不会是完整 HTML 页面。
+    白名单路径 (Swagger, Druid) 即使返回 HTML 也必须验证组件指纹。
+    """
+    bl = body.strip()
+    bl_lower = bl[:200].lower()
+
+    # 不是 HTML → 放行
+    if not bl_lower.startswith(("<!doctype", "<html", "<head", "<body",
+                                 "<meta", "<title", "<link", "<script")):
+        return False
+
+    # 极短 body 可能是真实敏感文件内容（如 ref: refs/heads/master）
+    if len(bl) < 30:
+        return False
+
+    path = entry.get("path", "")
+    if path in _HTML_WHITELIST:
+        # 白名单路径需验证指纹: body 必须含组件特征词
+        markers = _VULN_FINGERPRINTS.get(path, [])
+        if markers:
+            full_lower = bl.lower()
+            for m in markers:
+                if m.lower() in full_lower:
+                    return False  # 指纹命中 → 真漏洞
+            return True  # 白名单路径但无指纹 → SPA 幽灵 200
+
+    # 非 HTML 路径返回了完整 HTML 页面 → catchall 误报
+    return True
 
 
 @register("sensitive_path")

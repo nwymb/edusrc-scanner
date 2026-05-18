@@ -18,8 +18,9 @@ http:
   user_agent: "Mozilla/5.0 (compatible; eduSRC-Scanner/0.1; +https://github.com/nwymb/edusrc-scanner)"
   max_redirects: 3
   retry: 2                 # 失败重试次数
-  verify_ssl: true         # 验证 SSL 证书（仅内网/自签名环境可设为 false）
+  verify_ssl: false         # 教育网大量自签名/过期证书，关闭验证
   spoof_local_ip: true    # 注入 X-Forwarded-For: 127.0.0.1 等 IP 伪造头 (绕过 WAF/网关)
+  proxy: "http://t17907210525543:56d88a7x@d895.kdltpspro.com:15818"  # 快代理隧道 Pro（每次新连接换 IP）
 
 # --- 范围 ---
 scope:

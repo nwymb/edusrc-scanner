@@ -137,6 +137,7 @@ class Scheduler:
             retry=cfg_http.get("retry", 2),
             verify_ssl=cfg_http.get("verify_ssl", True),
             spoof_local_ip=cfg_http.get("spoof_local_ip", False),
+            proxy=cfg_http.get("proxy", ""),
         )
 
         sem = asyncio.Semaphore(max_concurrency)

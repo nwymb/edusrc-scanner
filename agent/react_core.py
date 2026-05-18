@@ -79,13 +79,20 @@ async def run_exploit_loop(
                 tools=ALL_TOOLS,
                 temperature=0.0,
                 max_tokens=2048,
+                extra_body={"thinking": {"type": "enabled"}},
             )
             msg = resp.choices[0].message
+            reasoning = getattr(msg, "reasoning_content", "") or ""
+
+            # 打印思考链到 stdout → 流入扫描日志
+            if reasoning:
+                print(f"\n[DS-Think step={step}]\n{reasoning}\n[/DS-Think]")
 
             # LLM 未调用工具 → 主动结束，检查 __EXPLOR_SUCCESS__ 标记
             if not msg.tool_calls:
                 summary = msg.content or "(LLM 未返回内容)"
                 entry["thought"] = summary
+                entry["reasoning"] = reasoning
                 history.append(entry)
                 messages.append({"role": "assistant", "content": summary})
                 if "__EXPLOR_SUCCESS__" in summary:
@@ -93,6 +100,7 @@ async def run_exploit_loop(
                 break
 
             entry["thought"] = msg.content or ""
+            entry["reasoning"] = reasoning
 
             # 追加 assistant 消息 (含 tool_calls)
             messages.append({
@@ -160,8 +168,12 @@ async def run_exploit_loop(
                 tools=[],  # 不给工具，强制纯文本输出
                 temperature=0.0,
                 max_tokens=1024,
+                extra_body={"thinking": {"type": "enabled"}},
             )
             final_msg = resp.choices[0].message.content or ""
+            final_reasoning = getattr(resp.choices[0].message, "reasoning_content", "") or ""
+            if final_reasoning:
+                print(f"\n[DS-Think final]\n{final_reasoning}\n[/DS-Think]")
             summary = final_msg
             if "__EXPLOR_SUCCESS__" in final_msg:
                 success = True

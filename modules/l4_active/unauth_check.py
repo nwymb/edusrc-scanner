@@ -279,6 +279,60 @@ class UnauthScanner:
         return sensitive, body, content_type, status
 
 
+# ── 200 OK 深度扫描管线 ──
+
+async def _deep_scan_200(target_url: str, body: str, session) -> list[Finding]:
+    """200 OK 无卡点 → 攻击面提取 → LLM 生成 Payload → 开火评估"""
+    findings: list[Finding] = []
+
+    # 仅对含 HTML 的响应启动（跳过纯 JSON / 静态资源）
+    ct_lower = body[:512].lower()
+    if not ("<form" in ct_lower or "<input" in ct_lower or "?" in target_url):
+        return findings
+
+    try:
+        from agent.attack_surface import extract_attack_surface
+        from agent.payload_generator import generate_dynamic_payloads
+        from agent.executor import execute_and_evaluate
+
+        surface = await extract_attack_surface(body, target_url)
+        if not surface["url_params"] and not surface["forms"]:
+            return findings
+
+        print(f"[*] 200深度扫描 → {target_url} (params={len(surface['url_params'])}, forms={len(surface['forms'])})")
+
+        payloads = await generate_dynamic_payloads(target_url, surface)
+        if not payloads:
+            return findings
+
+        results = await execute_and_evaluate(target_url, surface, payloads)
+
+        for r in results:
+            findings.append(Finding(
+                url=target_url,
+                vuln_type="sqli" if r.get("vulnerability_type", "").upper() in ("SQLI", "SQL") else "xss",
+                severity=VulnSeverity.CRITICAL,
+                title=f"{r['vulnerability_type']} @ {r['target_parameter']}: {target_url}",
+                evidence=f"judge_conf={r['confidence']} evidence={r.get('evidence', '')} status={r['response_status']} elapsed={r['elapsed']}s",
+                confidence=r["confidence"] / 100.0,
+                source=FindingSource.L4_ACTIVE,
+                source_module="unauth_check",
+                raw={
+                    "payload": r["payload"],
+                    "judge_evidence": r.get("evidence", ""),
+                    "response_status": r["response_status"],
+                    "elapsed": r["elapsed"],
+                },
+            ))
+
+    except ImportError as e:
+        _log.warning("deep_scan_200 missing module: %s", e)
+    except Exception as e:
+        _log.error("deep_scan_200_failed url=%s error=%s", target_url, e)
+
+    return findings
+
+
 # ── 三阶段合流: check_unauth ──
 
 async def check_unauth(target_url: str, session) -> dict:
@@ -337,20 +391,23 @@ async def check_unauth(target_url: str, session) -> dict:
                 found_block = True
                 break
         if not found_block:
-            # 确实没卡点 → AdvancedBypass 收尾
-            for tier_idx, combo in enumerate(_BYPASS_COMBOS, 1):
-                hit2, b2, ct2, s2 = await _raw_request(session, target_url, "GET", combo)
-                if hit2:
-                    findings.append(Finding(
-                        url=target_url, vuln_type="unauth",
-                        severity=VulnSeverity.HIGH,
-                        title=f"未授权访问 (绕过 Tier {tier_idx}): {target_url}",
-                        evidence=f"HTTP {s2} bypass=tier_{tier_idx}",
-                        confidence=0.75, source=FindingSource.L4_ACTIVE,
-                        source_module="unauth_check",
-                        raw={"bypass_tier": tier_idx, "status_code": s2},
-                    ))
-                    break
+            # 200 OK 无卡点 → 攻击面提取 + LLM Payload + 开火评估
+            findings = await _deep_scan_200(target_url, body, session)
+            # 若仍未命中，AdvancedBypass 收尾
+            if not findings:
+                for tier_idx, combo in enumerate(_BYPASS_COMBOS, 1):
+                    hit2, b2, ct2, s2 = await _raw_request(session, target_url, "GET", combo)
+                    if hit2:
+                        findings.append(Finding(
+                            url=target_url, vuln_type="unauth",
+                            severity=VulnSeverity.HIGH,
+                            title=f"未授权访问 (绕过 Tier {tier_idx}): {target_url}",
+                            evidence=f"HTTP {s2} bypass=tier_{tier_idx}",
+                            confidence=0.75, source=FindingSource.L4_ACTIVE,
+                            source_module="unauth_check",
+                            raw={"bypass_tier": tier_idx, "status_code": s2},
+                        ))
+                        break
             return {"findings": findings, "react_used": False, "report_path": None}
 
     # ═══ Phase 2: LLM 网关判定 ═══
@@ -445,6 +502,15 @@ async def run(context: dict) -> dict:
     logger = context["logger"]
     all_findings: list[Finding] = []
 
+    # ── 全局记忆初始化 (Task 1: 赛博义体) ──
+    try:
+        from agent.memory import AgentMemory
+        memory = AgentMemory.get()
+        context["memory"] = memory
+        logger.info("agent_memory_loaded keys=%d", len(memory.all()))
+    except ImportError:
+        memory = None
+
     # 快速路径: UnauthScanner 批量常规扫描
     scanner = UnauthScanner(session, logger)
     fast_findings = await scanner.scan(targets)
@@ -492,6 +558,28 @@ async def run(context: dict) -> dict:
             _log.warning("agent modules unavailable, skip pentest")
         except Exception as e:
             _log.error("pentest_crashed url=%s error=%s", url, e)
+
+    # 200 OK 深度扫描管线: 对未命中目标做 SQLi/XSS payload 测试
+    # 💸 弹药库保护: 深度扫描限 5 个目标，单次最多 ~150K tokens
+    max_deep = _load_llm_config().get("max_deep_scan_targets", 5)
+    already_scanned = {f.url for f in all_findings}
+    unscanned = [t for t in targets
+                 if t.get("url", "") not in already_scanned
+                 and t.get("url", "").startswith("http")]
+    if len(unscanned) > max_deep:
+        print(f"[BudgetGate] 深度扫描目标 {len(unscanned)} → 限额 {max_deep}，截断 "
+              f"(预估 Token: ~{max_deep * 3 * 30000:,} tokens)")
+    for target in unscanned[:max_deep]:
+        url = target.get("url", "")
+        try:
+            resp = await session.get(url)
+            body = await resp.text()
+        except Exception:
+            continue
+        deep_findings = await _deep_scan_200(url, body, session)
+        all_findings.extend(deep_findings)
+        if deep_findings:
+            logger.info("deep_scan_200_hit url=%s count=%d", url, len(deep_findings))
 
     logger.info("unauth_done total=%d", len(all_findings))
     return {"findings": [asdict(f) for f in all_findings]}

@@ -62,7 +62,8 @@ class RateLimitedSession:
                  user_agent: str = "eduSRC-Scanner/0.1",
                  max_redirects: int = 3, retry: int = 2,
                  verify_ssl: bool = True,
-                 spoof_local_ip: bool = False):
+                 spoof_local_ip: bool = False,
+                 proxy: str = ""):
         self.qps = qps
         self.timeout = aiohttp.ClientTimeout(total=timeout)
         self.user_agent = user_agent
@@ -70,6 +71,7 @@ class RateLimitedSession:
         self.retry = retry
         self.limiter = get_limiter(default_qps=qps)
         self.spoof_local_ip = spoof_local_ip
+        self.proxy = proxy or None
         self._session: Optional[aiohttp.ClientSession] = None
         self._ssl_context = ssl.create_default_context()
         if not verify_ssl:
@@ -89,10 +91,15 @@ class RateLimitedSession:
                     "X-Remote-IP": "127.0.0.1",
                     "X-Remote-Addr": "127.0.0.1",
                 })
+            kwargs = {}
+            if self.proxy:
+                kwargs["proxy"] = self.proxy
+            headers["Connection"] = "close"  # 隧道代理强制新连接，每次换 IP
             self._session = aiohttp.ClientSession(
                 timeout=self.timeout,
                 connector=connector,
                 headers=headers,
+                **kwargs,
             )
         return self._session
 
